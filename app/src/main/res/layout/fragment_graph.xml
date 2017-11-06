@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.thymythos.diagnosticdataviewer.GraphFragment">
+
+    <com.androidplot.xy.XYPlot
+        style="@style/APDefacto.Dark"
+        android:id="@+id/plot"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:backgroundColor="@color/ap_white"
+        app:graphBackgroundColor="@color/ap_white"
+        app:gridBackgroundColor="@color/ap_white"
+        app:domainLineColor="@color/ap_gray"
+        app:domainOriginLineColor="@color/ap_gray"
+        app:rangeLineColor="@color/ap_gray"
+        app:rangeOriginLineColor="@color/ap_gray"
+        app:lineLabelTextColorBottom="@color/ap_gray"
+        app:lineLabelTextColorLeft="@color/ap_gray"
+        app:title="ECU Data View"
+        app:rangeTitle="TPS"
+        app:domainTitle="RPM"
+        app:lineLabels="left|bottom" />
+
+</FrameLayout>
