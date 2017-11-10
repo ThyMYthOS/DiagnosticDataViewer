@@ -41,8 +41,8 @@ public class TableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        String[] rpm = { "0.9k", "1.2k", "1.8k", "2.5k", "3k", "3.5k", "4k", "4.5k", "5k", "6k", "7k", "8k", "9.5k", "11k", "11.8k", "12.5k" };
-        String[] tps = { "1.8", "2.3", "2.5", "3.2", "4.2", "5.6", "7.1", "9.1", "12.1", "16.1", "21.2", "28.3", "37.3", "48.4", "60.6", "78.2" };
+        String[] rpm = { "12.5", "11.8", "11.0", "9.5", "8.0", "7.0", "6.0", "5.0", "4.5", "4.0", "3.5", "3.0", "2.5", "1.8", "1.2","0.9" };
+        String[] tps = { "78","61", "48", "37", "28", "21", "16", "12", "9.1", "7.1", "5.6", "4.2", "3.2", "2.5", "2.3", "1.8"};
 
         GradientDrawable gdGreen = new GradientDrawable();
         gdGreen.setColor(0xFF00FF00);
