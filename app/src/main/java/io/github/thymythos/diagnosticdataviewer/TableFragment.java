@@ -41,8 +41,38 @@ public class TableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        String[] rpm = { "12.5", "11.8", "11.0", "9.5", "8.0", "7.0", "6.0", "5.0", "4.5", "4.0", "3.5", "3.0", "2.5", "1.8", "1.2","0.9" };
-        String[] tps = { "78","61", "48", "37", "28", "21", "16", "12", "9.1", "7.1", "5.6", "4.2", "3.2", "2.5", "2.3", "1.8"};
+        int [] rpm = { 0,900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500,13500 };
+        double[] tps = {0, 1.8 ,2.3, 2.5, 3.3, 4.2, 5.6, 7.1, 9.1, 12, 16, 21, 28, 37, 48, 61, 78, 100};
+
+        double TPSclosed = 2.3;
+
+        double[] TestData = {1250,2.3,1350,2.3,1300,2.3,1325,2.3,1450,5,1550,5,2000,8.0,2000,8};
+        int colCell;
+        int rowCell;
+        int RPM;
+        double TPS;
+
+        double [] maxTPS = new double[16];
+        double [] minTPS = new double[16];
+        int [] maxRPM = new int[16];
+        int [] minRPM = new int[16];
+
+        for (int i=1; i<16; i++) {
+           double  minDiff = tps[i]-tps[i-1]*0.35;
+           minTPS[i-1] = tps[i] - minDiff;
+           double maxDiff = tps[i+1]-tps[i]*0.35;
+           maxTPS[i-1] = tps[i] + maxDiff;
+
+           minDiff = (double)(rpm[i]-rpm[i-1])*0.35;
+           minRPM[i-1] = (int)(rpm[i] - minDiff);
+           maxDiff = (double)(rpm[i+1]-rpm[i])*0.35;
+           maxRPM[i-1] = (int)(rpm[i] + maxDiff);
+
+        }
+        minTPS[2]=TPSclosed*0.9;
+
+
+
 
         GradientDrawable gdGreen = new GradientDrawable();
         gdGreen.setColor(0xFF00FF00);
@@ -60,9 +90,9 @@ public class TableFragment extends Fragment {
             TableRow tableRow = new TableRow(table.getContext());
             tableRow.setLayoutParams(rowLayout);
 
-            // TPS column
+            // RPM column
             TextView text = new TextView(tableRow.getContext());
-            text.setText(tps[row]);
+            text.setText(Double.toString(rpm[16-row]/1000));
             text.setLayoutParams(colLayout);
             text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             text.setPadding(15,5, 15, 5);
@@ -71,7 +101,8 @@ public class TableFragment extends Fragment {
             // Main table
             for (int col = 0; col < 16; col++) {
                 text = new TextView(tableRow.getContext());
-                text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+                //text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+                text.setBackground(gdRed);
                 text.setLayoutParams(colLayout);
                 text.setPadding(15,5, 15, 5);
                 tableRow.addView(text);
@@ -80,7 +111,7 @@ public class TableFragment extends Fragment {
             table.addView(tableRow);
         }
 
-        // RPM row
+        // TPS row
         TableRow row = new TableRow(table.getContext());
         row.setLayoutParams(rowLayout);
         TextView text = new TextView(row.getContext());
@@ -90,13 +121,32 @@ public class TableFragment extends Fragment {
         row.addView(text);
         for (int col = 0; col < 16; col++) {
             text = new TextView(row.getContext());
-            text.setText(rpm[col]);
+            text.setText(Double.toString(tps[16-col]));
             text.setLayoutParams(colLayout);
             text.setGravity(Gravity.CENTER_HORIZONTAL);
             text.setPadding(15,5, 15, 5);
             row.addView(text);
         }
         table.addView(row);
+///////////////////////////////////////////////////////////////
+        /// Read bluetooth data here
+        /////////////////////////////
+          for (int i=0; i<15; i+=2) { //Test data 
+            colCell=0;
+            rowCell=0;
+            RPM=(int)(TestData[i]);
+            TPS=TestData[i+1];
+              for (int ii=0; ii<16; ii++) {
+               if (TPS>=minTPS[i] && TPS<=maxTPS[i]) colCell=i;
+               if (RPM>=minRPM[i] && RPM<=maxRPM[i]) rowCell=i;
+              }
+        //if rowCell>0 then
+        //change colour of cell (colCell rowCell) here from red to yellow to orange to green ???
+        //delay 500ms so we can see it change during this test
+           }
+
+
+
 
         return view;
     }
