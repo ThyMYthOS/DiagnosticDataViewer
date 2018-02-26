@@ -27,10 +27,37 @@
     <string name="unknown_characteristic">Unknown characteristic</string>
     <string name="unknown_service">Unknown service</string>
 
-    <string name="label_RPM">RPM </string>
-    <string name="label_data_RPM">---</string>
-    <string name="label_TPS">TPS </string>
-    <string name="label_data_TPS">---</string>
+
+    <string name="RPM_label">RPM</string>
+    <string name="RPM_data">- - - -</string>
+    <string name="TPS_label">TPS</string>
+    <string name="TPS_data">- - - -</string>
+    <string name="AFR1_label">Air Fuel Ratio 1</string>
+    <string name="AFR1_data">- - - -</string>
+    <string name="AFR2_label">Air Fuel Ratio 2</string>
+    <string name="AFR2_data">- - - -</string>
+    <string name="N_data">N</string>
+    <string name="EBS_data">E</string>
+    <string name="CTS_label">Coolant Temp</string>
+    <string name="CTS_data">- - - -</string>
+    <string name="IAT_label">Intake Air Temp</string>
+    <string name="IAT_data">- - - -</string>
+    <string name="INJ1_label">INJ1 Duration ms</string>
+    <string name="INJ1_data">- - - -</string>
+    <string name="INJ2_label">INJ2 Duration ms</string>
+    <string name="INJ2_data">- - - -</string>
+    <string name="ADV_label">Advance Degrees</string>
+    <string name="ADV_data">- - - -</string>
+    <string name="AP_label">Air Pressure mbar</string>
+    <string name="AP_data">- - - -</string>
+    <string name="BV_label">Battery Voltage</string>
+    <string name="BV_data">- - - -</string>
+    <string name="AN3_label">Analog Input 3</string>
+    <string name="AN3_data">- - - -</string>
+    <string name="AN4_label">Analog Input 4</string>
+    <string name="AN4_data">- - - -</string>
+    <string name="Message_data">    </string>
+
 
     <!-- Menu items -->
     <string name="menu_connect">Connect</string>

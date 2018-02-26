@@ -2,7 +2,6 @@ package io.github.thymythos.diagnosticdataviewer;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.NavigationView;
@@ -21,8 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import java.text.DecimalFormat;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,11 +82,95 @@ public class MainActivity extends AppCompatActivity
                 invalidateOptionsMenu();
                 // TODO: clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                List<BluetoothGattService> services = mBluetoothLeService.getSupportedGattServices();
-                // TODO: select the right characteristic
-                mBluetoothLeService.setCharacteristicNotification(services.get(0).getCharacteristics().get(0), true);
+
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                // TODO: displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                String data = intent.getExtras().getString("data16");
+                String[] separated = data.split(",");
+                Integer dataType = Integer.valueOf(separated[0]);
+
+
+                switch(dataType) {
+                    case 1:
+                            TextView RPM_data = (TextView) (findViewById(R.id.label_RPM_data));
+                            RPM_data.setText(String.valueOf(separated[1]));
+
+                        break;
+                    case 2:
+                            TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
+                            TPS_data.setText(String.valueOf(separated[1]));
+                        
+                        break;
+                    case 3:
+                        TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
+                        AFR1_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 4:
+                        TextView AFR2_data = (TextView) (findViewById(R.id.label_AFR2_data));
+                        AFR2_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 5:
+                        TextView N_data = (TextView) (findViewById(R.id.label_N_Data));
+                        if (Integer.valueOf(separated[1]) == 1 ) {
+                            N_data.setTextColor(Color.parseColor("#009900")); //green
+                        } else {
+                            N_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        }
+                        break;
+                    case 6:
+                        TextView EBS_data = (TextView) (findViewById(R.id.label_EBS_data));
+                        if (Integer.valueOf(separated[1]) == 1 ) {
+                            EBS_data.setTextColor(Color.parseColor("#009900")); //green
+                        } else {
+                            EBS_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        }
+                        break;
+                    case 7:
+                        TextView CTS_data = (TextView) (findViewById(R.id.label_CTS_data));
+                        CTS_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 8:
+                        TextView IAT_data = (TextView) (findViewById(R.id.label_IAT_data));
+                        IAT_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 9:
+                        TextView ADV_data = (TextView) (findViewById(R.id.label_ADV_data));
+                        ADV_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 11:
+                        TextView INJ1_data = (TextView) (findViewById(R.id.label_INJ1_data));
+                        INJ1_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 13:
+                        TextView INJ2_data = (TextView) (findViewById(R.id.label_INJ2_data));
+                        INJ2_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 14:
+                        TextView AP_data = (TextView) (findViewById(R.id.label_AP_data));
+                        AP_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 15:
+                        TextView BV_data = (TextView) (findViewById(R.id.label_BV_data));
+                        BV_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 16://
+                        TextView AN3_data = (TextView) (findViewById(R.id.label_AN3_data));
+                        AN3_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 17:
+                        TextView AN4_data = (TextView) (findViewById(R.id.label_AN4_data));
+                        AN4_data.setText(String.valueOf(separated[1]));
+                        break;
+                    case 99:
+                        TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+                        Message_data.setText(separated[1]);
+                        break;
+
+                }
+
+                //Log.i("DataAvailable: ", Message);
+
+
+
             }
         }
 
@@ -96,6 +183,12 @@ public class MainActivity extends AppCompatActivity
             });
         }
     };
+
+    //private Void displayMessage(final String Message16m) {
+      //  Toast.makeText(getApplicationContext(),"Message16m",Toast.LENGTH_LONG).show();
+        //return null;
+    //}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +209,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.content_frame, new GraphFragment())
+                .add(R.id.content_frame, new TextDataItemFragment())
                 .commit();
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
@@ -143,6 +236,9 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+
+
 
     @Override
     protected void onPause() {
@@ -211,8 +307,9 @@ public class MainActivity extends AppCompatActivity
             fragment = TextDataItemFragment.newInstance();
 //            getActionBar().setTitle(R.string.text_view);
         } else if (id == R.id.nav_graph_view) {
+
             fragment = new GraphFragment();
-//            getActionBar().setTitle(R.string.graph_view);
+            getActionBar().setTitle(R.string.graph_view);
         } else if (id == R.id.nav_table_view) {
             fragment = TableFragment.newInstance();
 //            getActionBar().setTitle(R.string.table_view);
