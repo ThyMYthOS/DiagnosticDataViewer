@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                     case 2:
                             TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
                             TPS_data.setText(String.valueOf(separated[1]));
-                        
+
                         break;
                     case 3:
                         TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
