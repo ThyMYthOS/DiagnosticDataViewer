@@ -36,12 +36,8 @@ public class TableFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-
-    {
-
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_table, container, false);
 
         int[] rpm = {0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
@@ -96,59 +92,33 @@ public class TableFragment extends Fragment {
             text.setTextSize(10);
             text.setText(Double.toString(rpm[17 - row] / 1000));
 
-            //text.setLayoutParams(colLayout);
             text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             text.setPadding(15, 5, 15, 5);
-            if (row==16) text.setText("");
+            if (row == 16) text.setText("");
             tableRow.addView(text);
 
+            // Main table and row index
+            for (int col = 0; col < 16; col++) {
+                text = new TextView(tableRow.getContext());
+                if (row < 16) {
 
-                // Main table and row index
+                    text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+                    text.setBackground(gdRed);
+                    text.setLayoutParams(colLayout);
+                } else {
+                    text.setText(Double.toString(tps[16 - col]));
+                    text.setGravity(Gravity.CENTER_HORIZONTAL);
+                    if (col % 2 != 0) text.setText("  ");
+                    text.setTextSize(10);
+                }
 
-                    for (int col = 0; col < 16; col++) {
-                        text = new TextView(tableRow.getContext());
-                        if (row<16) {
-
-                            text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
-                            text.setBackground(gdRed);
-                           text.setLayoutParams(colLayout);
-                        }else{
-                            text.setText(Double.toString(tps[16 - col]));
-                            text.setGravity(Gravity.CENTER_HORIZONTAL);
-                            //text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-                            if (col%2 !=0) text.setText("  ");
-                            text.setTextSize(10);
-                        }
-
-                            text.setPadding(0, 5, 25, 5);
-                            tableRow.addView(text);
-
-                    }
-
-                    table.addView(tableRow);
-
+                text.setPadding(0, 5, 25, 5);
+                tableRow.addView(text);
             }
 
-        /////////////////////////////
-        /// Simulate bluetooth data
-        /////////////////////////////
-
-        /*
-        for (int i = 0; i < 15; i += 2) {
-            colCell = 0;
-            rowCell = 0;
-            RPM = (int) (TestData[i]);
-            TPS = TestData[i + 1];
-            for (int ii = 0; ii < 16; ii++) {
-                if (TPS >= minTPS[i] && TPS <= maxTPS[i]) colCell = i;
-                if (RPM >= minRPM[i] && RPM <= maxRPM[i]) rowCell = i;
-            }
-            // TODO:
-            // if rowCell > 0 {
-            // change colour of cell (colCell rowCell) here from red to yellow to orange to green ???
-            // delay 500ms so we can see it change during this test
+            table.addView(tableRow);
         }
-*/
+
         return view;
     }
 
