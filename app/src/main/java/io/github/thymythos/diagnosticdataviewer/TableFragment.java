@@ -83,65 +83,40 @@ public class TableFragment extends Fragment {
         TableLayout.LayoutParams rowLayout = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 0, 1f / 17f);
         TableRow.LayoutParams colLayout = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f / 17f);
         TableLayout table = view.findViewById(R.id.table);
-        for (int row = 0; row < 16; row++) {
+        for (int row = 0; row < 17; row++) {
             TableRow tableRow = new TableRow(table.getContext());
             tableRow.setLayoutParams(rowLayout);
 
             // RPM column
             TextView text = new TextView(tableRow.getContext());
-            text.setText(Double.toString(rpm[16 - row] / 1000));
-            text.setLayoutParams(colLayout);
+            text.setTextSize(10);
+            text.setText(Double.toString(rpm[17 - row] / 1000));
+
             text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             text.setPadding(15, 5, 15, 5);
+            if (row == 16) text.setText("");
             tableRow.addView(text);
 
-            // Main table
+            // Main table and row index
             for (int col = 0; col < 16; col++) {
                 text = new TextView(tableRow.getContext());
-                //text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
-                text.setBackground(gdRed);
-                text.setLayoutParams(colLayout);
-                text.setPadding(15, 5, 15, 5);
+                if (row < 16) {
+
+                    text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+                    text.setBackground(gdRed);
+                    text.setLayoutParams(colLayout);
+                } else {
+                    text.setText(Double.toString(tps[16 - col]));
+                    text.setGravity(Gravity.CENTER_HORIZONTAL);
+                    if (col % 2 != 0) text.setText("  ");
+                    text.setTextSize(10);
+                }
+
+                text.setPadding(0, 5, 25, 5);
                 tableRow.addView(text);
             }
 
             table.addView(tableRow);
-        }
-
-        // TPS row
-        TableRow row = new TableRow(table.getContext());
-        row.setLayoutParams(rowLayout);
-        TextView text = new TextView(row.getContext());
-        text.setLayoutParams(colLayout);
-        text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-        text.setPadding(15, 5, 15, 5);
-        row.addView(text);
-        for (int col = 0; col < 16; col++) {
-            text = new TextView(row.getContext());
-            text.setText(Double.toString(tps[16 - col]));
-            text.setLayoutParams(colLayout);
-            text.setGravity(Gravity.CENTER_HORIZONTAL);
-            text.setPadding(15, 5, 15, 5);
-            row.addView(text);
-        }
-        table.addView(row);
-
-        /////////////////////////////
-        /// Simulate bluetooth data
-        /////////////////////////////
-        for (int i = 0; i < 15; i += 2) {
-            colCell = 0;
-            rowCell = 0;
-            RPM = (int) (TestData[i]);
-            TPS = TestData[i + 1];
-            for (int ii = 0; ii < 16; ii++) {
-                if (TPS >= minTPS[i] && TPS <= maxTPS[i]) colCell = i;
-                if (RPM >= minRPM[i] && RPM <= maxRPM[i]) rowCell = i;
-            }
-            // TODO:
-            // if rowCell > 0 then
-            // change colour of cell (colCell rowCell) here from red to yellow to orange to green ???
-            // delay 500ms so we can see it change during this test
         }
 
         return view;
