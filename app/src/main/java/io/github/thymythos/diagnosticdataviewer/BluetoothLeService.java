@@ -278,7 +278,7 @@ public class BluetoothLeService extends Service {
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
 
-        if (UUID_DataLogger.equals(characteristic.getUuid())) {
+        if (UUID_Data16m.equals(characteristic.getUuid())) {
             for (BluetoothGattDescriptor descriptor : characteristic.getDescriptors()) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 mBluetoothGatt.writeDescriptor(descriptor);
