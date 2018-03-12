@@ -127,7 +127,7 @@ public class BluetoothLeService extends Service {
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic) {
         final Intent intent = new Intent(action);
-        intent.putExtra(EXTRA_UUID, characteristic.getUuid());
+        intent.putExtra(EXTRA_UUID, characteristic.getUuid().toString());
         final byte[] data = characteristic.getValue();
         if (data != null && data.length > 0) {
             intent.putExtra(EXTRA_DATA, new String(data));
@@ -278,7 +278,7 @@ public class BluetoothLeService extends Service {
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
 
-        if (UUID_DataLogger.equals(characteristic.getUuid())) {
+        if (UUID_Data16m.equals(characteristic.getUuid())) {
             for (BluetoothGattDescriptor descriptor : characteristic.getDescriptors()) {
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 mBluetoothGatt.writeDescriptor(descriptor);
