@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -43,9 +44,8 @@ public class TableFragment extends Fragment {
         int[] rpm = {0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
         double[] tps = {0, 1.8, 2.3, 2.5, 3.3, 4.2, 5.6, 7.1, 9.1, 12, 16, 21, 28, 37, 48, 61, 78, 100};
 
-        double TPSclosed = 2.3;
+        double TPSclosed = 2.1;
 
-        double[] TestData = {1250, 2.3, 1350, 2.3, 1300, 2.3, 1325, 2.3, 1450, 5, 1550, 5, 2000, 8.0, 2000, 8};
         int colCell;
         int rowCell;
         int RPM;
@@ -103,7 +103,9 @@ public class TableFragment extends Fragment {
                 if (row < 16) {
 
                     text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+
                     text.setBackground(gdRed);
+
                     text.setLayoutParams(colLayout);
                 } else {
                     text.setText(Double.toString(tps[16 - col]));

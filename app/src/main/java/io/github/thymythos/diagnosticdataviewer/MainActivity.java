@@ -185,10 +185,61 @@ public class MainActivity extends AppCompatActivity
                     AN4_data.setText(String.valueOf(separated[1]));
                     break;
                 case 99:
-                    TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
-                    Message_data.setText(separated[1]);
-                    break;
+                     displayMessage(separated[1]);
+                     break;
             }
+        }
+
+        private void displayMessage(String message) {
+            TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+            Integer messageType = Integer.valueOf(message);
+
+            switch (messageType) {
+                case 1:
+                    Message_data.setText("SD Card Failure");
+                    break;
+                case 2:
+                    Message_data.setText("Switch IGN On");
+                    break;
+                case 3:
+                    Message_data.setText("Stored Errors");
+                    break;
+                case 4:
+                    Message_data.setText("Errors Cleared");
+                    break;
+                case 5:
+                    Message_data.setText("Config File Error");
+                    break;
+                case 6:
+                    Message_data.setText("Start Engine");
+                    break;
+                case 7:
+                    Message_data.setText("AFR Cold");
+                    break;
+                case 8:
+                    Message_data.setText("AFR not in use");
+                    break;
+                case 9:
+                    Message_data.setText("AFR Error");
+                    break;
+                case 10:
+                    Message_data.setText("AFR Ready");
+                    break;
+                case 11:
+                    Message_data.setText("Engine Cold");
+                    break;
+                case 12:
+                    Message_data.setText("Engine Warm");
+                    break;
+                case 13:
+                    Message_data.setText("");
+                    break;
+                case 14:
+                    Message_data.setText("TimeOut - Rebooting");
+                    break;
+
+            }
+
         }
     };
 
@@ -201,8 +252,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.text_view);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
