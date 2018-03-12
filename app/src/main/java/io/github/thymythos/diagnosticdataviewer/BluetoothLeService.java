@@ -127,7 +127,7 @@ public class BluetoothLeService extends Service {
     private void broadcastUpdate(final String action,
                                  final BluetoothGattCharacteristic characteristic) {
         final Intent intent = new Intent(action);
-        intent.putExtra(EXTRA_UUID, characteristic.getUuid());
+        intent.putExtra(EXTRA_UUID, characteristic.getUuid().toString());
         final byte[] data = characteristic.getValue();
         if (data != null && data.length > 0) {
             intent.putExtra(EXTRA_DATA, new String(data));

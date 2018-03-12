@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.UUID;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity
                 // TODO: clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 for (BluetoothGattService service : mBluetoothLeService.getSupportedGattServices()) {
+                    Log.d(TAG, "Service " + service.getUuid().toString());
                     if (BluetoothLeService.UUID_DataLogger.equals(service.getUuid())) {
                         BluetoothGattCharacteristic characteristic = service.getCharacteristic(BluetoothLeService.UUID_Data16m);
                         mBluetoothLeService.setCharacteristicNotification(characteristic, true);
@@ -89,8 +92,11 @@ public class MainActivity extends AppCompatActivity
                 }
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 String uuid = intent.getStringExtra(BluetoothLeService.EXTRA_UUID);
-                if (BluetoothLeService.UUID_Data16m.equals(uuid)) {
-                    displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                if (BluetoothLeService.UUID_Data16m.equals(UUID.fromString(uuid))) {
+                    try {
+                        displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                    } catch (Exception e) {
+                    }
                 }
             }
         }
