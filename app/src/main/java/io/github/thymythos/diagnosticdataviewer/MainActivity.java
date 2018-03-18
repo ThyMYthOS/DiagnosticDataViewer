@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     TextView RPM_data = (TextView) (findViewById(R.id.label_RPM_data));
                     RPM_data.setText(String.valueOf(separated[1]));
+                    TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+                    Message_data.setText(getString(R.string.Connected_message));
                     break;
                 case 2:
                     TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
@@ -184,9 +186,15 @@ public class MainActivity extends AppCompatActivity
                     TextView AN4_data = (TextView) (findViewById(R.id.label_AN4_data));
                     AN4_data.setText(String.valueOf(separated[1]));
                     break;
+                case 96:
+                    actuatorTest(separated[1], separated[2]);
+                    break;
+                case 97:
+                    displayValue(separated[1], separated[2]);
+                    break;
                 case 99:
-                     displayMessage(separated[1]);
-                     break;
+                    displayMessage(separated[1]);
+                    break;
             }
         }
 
@@ -196,51 +204,211 @@ public class MainActivity extends AppCompatActivity
 
             switch (messageType) {
                 case 1:
-                    Message_data.setText("SD Card Failure");
+                    TextView SDfail = (TextView) (findViewById(R.id.label_SDcard_result));
+                    SDfail.setText(getString(R.string.Failed_message));
+                    Message_data.setText(getString(R.string.Clear_message)); // Clear message line
                     break;
                 case 2:
-                    Message_data.setText("Switch IGN On");
+                    TextView SDpass = (TextView) (findViewById(R.id.label_SDcard_result));
+                    SDpass.setText(getString(R.string.OK_message));
+                    Message_data.setText(getString(R.string.IGN_ON_message));
                     break;
                 case 3:
-                    Message_data.setText("Stored Errors");
+                    TextView Faults = (TextView) (findViewById(R.id.label_Fault_Codes_result));
+                    Faults.setText(getString(R.string.Yes_message));
+                    TextView FaultsC = (TextView) (findViewById(R.id.label_Fault_Clear_result));
+                    FaultsC.setText(getString(R.string.No_message));
                     break;
                 case 4:
-                    Message_data.setText("Errors Cleared");
+                    TextView FaultsC2 = (TextView) (findViewById(R.id.label_Fault_Clear_result));
+                    FaultsC2.setText(getString(R.string.Yes_message));
                     break;
                 case 5:
-                    Message_data.setText("Config File Error");
+                    TextView Config = (TextView) (findViewById(R.id.label_Config_result));
+                    Config.setText(getString(R.string.Failed_message));
                     break;
                 case 6:
-                    Message_data.setText("Start Engine");
+                    TextView Config2 = (TextView) (findViewById(R.id.label_Config_result));
+                    Config2.setText(getString(R.string.OK_message));
+                    Message_data.setText(getString(R.string.Start_ENG_message));
                     break;
                 case 7:
-                    Message_data.setText("AFR Cold");
+                    Message_data.setText(getString(R.string.AFR_Cold_message));
+                    TextView AfrCold = (TextView) (findViewById(R.id.label_AFR_result));
+                    AfrCold.setText(getString(R.string.Cold_message));
                     break;
                 case 8:
-                    Message_data.setText("AFR not in use");
+                    Message_data.setText(getString(R.string.AFR_NA_message));
+                    TextView AfrNA = (TextView) (findViewById(R.id.label_AFR_result));
+                    AfrNA.setText(getString(R.string.NA_message));
                     break;
                 case 9:
-                    Message_data.setText("AFR Error");
+                    Message_data.setText(getString(R.string.AFR_Err_message));
+                    TextView AfrErr = (TextView) (findViewById(R.id.label_AFR_result));
+                    AfrErr.setText(getString(R.string.Error_message));
                     break;
                 case 10:
-                    Message_data.setText("AFR Ready");
+                    Message_data.setText(getString(R.string.AFR_Ready_message));
+                    TextView AfrOK = (TextView) (findViewById(R.id.label_AFR_result));
+                    AfrOK.setText(getString(R.string.OK_message));
                     break;
                 case 11:
-                    Message_data.setText("Engine Cold");
+                    Message_data.setText(getString(R.string.Eng_Cold_message));
+                    TextView EngineCold = (TextView) (findViewById(R.id.label_Engine_result));
+                    EngineCold.setText(getString(R.string.Cold_message));
                     break;
                 case 12:
-                    Message_data.setText("Engine Warm");
+                    Message_data.setText(getString(R.string.Eng_Warm_message));
+                    TextView EngineOK = (TextView) (findViewById(R.id.label_Engine_result));
+                    EngineOK.setText(getString(R.string.OK_message));
                     break;
                 case 13:
-                    Message_data.setText("");
+                    Message_data.setText(getString(R.string.Clear_message));
                     break;
                 case 14:
-                    Message_data.setText("TimeOut - Rebooting");
+                    Message_data.setText(getString(R.string.IGN_OFF_message));
+                    break;
+                case 15:
+                    Message_data.setText(getString(R.string.TimeOut_message));
+                    break;
+                case 16:
+                    // Insert the fragment by replacing any existing fragment
+                    Fragment fragment = null;
+                    fragment = LoggerInfoFragment.newInstance();
+                    getSupportActionBar().setTitle(R.string.info_view);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, fragment)
+                            .commit();
                     break;
 
             }
 
         }
+
+        private void displayValue(String value, String result) {
+            Integer valueData = Integer.valueOf(value);
+
+            switch (valueData) {
+                case 1:
+                    TextView vcal = (TextView) (findViewById(R.id.label_Calibration_result));
+                    vcal.setText(result);
+                    break;
+                case 2:
+                    TextView logNameView = (TextView) (findViewById(R.id.label_Log_result));
+                    String[] logName = result.split(".csv");
+                    logNameView.setText(String.valueOf(logName[0]));
+                    break;
+                case 3:
+                    TextView firm = (TextView) (findViewById(R.id.label_Firmware_result));
+                    String firmware= result.replaceAll("\\s", ""); //remove spaces
+                    firm.setText(firmware);
+                    break;
+                case 4:
+                    TextView mode = (TextView) (findViewById(R.id.label_Mode_result));
+                    Integer modeType = Integer.valueOf(result);
+
+                    if (modeType==4){
+                        // Insert the fragment by replacing any existing fragment
+                        Fragment fragment = null;
+                        fragment = ActuatorTestFragment.newInstance();
+                        getSupportActionBar().setTitle(R.string.actuator_view);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.content_frame, fragment)
+                                .commit();
+                     }
+
+                    if (modeType==1) {
+                        mode.setText(getString(R.string.Data1_message));
+                    } else if (modeType==2) {
+                        mode.setText(getString(R.string.Data2_message));
+                    } else if (modeType==3) {
+                        mode.setText(getString(R.string.Data3_message));
+                    }
+
+                    TextView ignOn = (TextView) (findViewById(R.id.label_Ignition_result));
+                    ignOn.setText(getString(R.string.ON_message));
+                    break;
+                case 5:
+                    TextView duration = (TextView) (findViewById(R.id.label_Firmware_result));
+                    duration.setText(result);
+                    break;
+            }
+        }
+
+
+
+        private void actuatorTest(String test, String result) {
+            Integer testData = Integer.valueOf(test);
+            Integer resultVal = Integer.valueOf(result);
+
+            switch (testData) {
+                case 0:
+                    TextView inj1Res = (TextView) (findViewById(R.id.label_Injector1_result));
+                    if (resultVal == 0) {
+                        inj1Res.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            inj1Res.setText(getString(R.string.Passed_message));
+                        } else
+                            inj1Res.setText(getString(R.string.Failed_message));
+                    break;
+
+                case 1:
+                    TextView inj2Res = (TextView) (findViewById(R.id.label_Injector2_result));
+                    if (resultVal == 0) {
+                        inj2Res.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            inj2Res.setText(getString(R.string.Passed_message));
+                        } else
+                            inj2Res.setText(getString(R.string.Failed_message));
+                    break;
+
+                case 2:
+                    TextView coil1Res = (TextView) (findViewById(R.id.label_Coil1_result));
+                    if (resultVal == 0) {
+                        coil1Res.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            coil1Res.setText(getString(R.string.Passed_message));
+                        } else
+                            coil1Res.setText(getString(R.string.Failed_message));
+                    break;
+
+                case 3:
+                    TextView coil2Res = (TextView) (findViewById(R.id.label_Coil2_result));
+                    if (resultVal == 0) {
+                        coil2Res.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            coil2Res.setText(getString(R.string.Passed_message));
+                        } else
+                            coil2Res.setText(getString(R.string.Failed_message));
+                    break;
+
+                case 4:
+                    TextView fuelRes = (TextView) (findViewById(R.id.label_FuelPump_result));
+                    if (resultVal == 0) {
+                        fuelRes.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            fuelRes.setText(getString(R.string.Passed_message));
+                        } else
+                            fuelRes.setText(getString(R.string.Failed_message));
+                    break;
+
+                case 5:
+                    TextView tachRes = (TextView) (findViewById(R.id.label_Tachometer_Result));
+                    if (resultVal == 0) {
+                        tachRes.setText(getString(R.string.Testing_message));
+                    } else if (resultVal == 1) {
+                            tachRes.setText(getString(R.string.Passed_message));
+                        } else
+                            tachRes.setText(getString(R.string.Failed_message));
+
+                    break;
+
+            }
+        }
+
+
     };
 
     @Override
@@ -249,7 +417,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.text_view);
+        getSupportActionBar().setTitle(R.string.info_view);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -261,7 +429,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.content_frame, new GraphFragment())
+                .add(R.id.content_frame, new LoggerInfoFragment())
                 .commit();
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
@@ -352,15 +520,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         Fragment fragment = null;
-        if (id == R.id.nav_text_view) {
+        if (id == R.id.nav_info_view) {
+            fragment = LoggerInfoFragment.newInstance();
+            getSupportActionBar().setTitle(R.string.info_view);
+        } else if (id == R.id.nav_text_view) {
             fragment = TextDataItemFragment.newInstance();
-//            getActionBar().setTitle(R.string.text_view);
+             getSupportActionBar().setTitle(R.string.text_view);
         } else if (id == R.id.nav_graph_view) {
             fragment = new GraphFragment();
-//            getActionBar().setTitle(R.string.graph_view);
+            getSupportActionBar().setTitle(R.string.graph_view);
         } else if (id == R.id.nav_table_view) {
             fragment = TableFragment.newInstance();
-//            getActionBar().setTitle(R.string.table_view);
+            getSupportActionBar().setTitle(R.string.table_view);
+        } else if (id == R.id.nav_actuator_view) {
+            fragment = ActuatorTestFragment.newInstance();
+          getSupportActionBar().setTitle(R.string.actuator_view);
 //        } else if (id == R.id.nav_manage) {
 //
 //        } else if (id == R.id.nav_share) {

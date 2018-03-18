@@ -8,9 +8,12 @@
     <string name="action_settings">Settings</string>
     <string name="graph_fragment">Graph Fragment</string>
     <string name="table_fragment">Table fragment</string>
+    <string name="actuator_fragment">Actuator fragment</string>
+    <string name="info_view">Info</string>
     <string name="text_view">Data</string>
     <string name="graph_view">Graph</string>
     <string name="table_view">Table</string>
+    <string name="actuator_view">Actuator Test</string>
 
     <!-- BLE stuff -->
     <string name="ble_not_supported">BLE is not supported</string>
@@ -27,7 +30,7 @@
     <string name="unknown_characteristic">Unknown characteristic</string>
     <string name="unknown_service">Unknown service</string>
 
-
+    <!-- Data View -->
     <string name="RPM_label">RPM</string>
     <string name="RPM_data">- - - -</string>
     <string name="TPS_label">TPS</string>
@@ -58,12 +61,89 @@
     <string name="AN4_data">- - - -</string>
     <string name="Message_data">    </string>
 
+    <!-- Actuator Test -->
+    <string name="ActuatorTest_label">Test</string>
+    <string name="ActuatorResult_label">Result</string>
+    <string name="Injector1_label">Injector1</string>
+    <string name="Injector1_result">- - - -</string>
+    <string name="Injector2_label">Injector2</string>
+    <string name="Injector2_result">- - - -</string>
+    <string name="Coil1_label">Coil 1</string>
+    <string name="Coil1_result">- - - -</string>
+    <string name="Coil2_label">Coil 2</string>
+    <string name="Coil2_result">- - - -</string>
+    <string name="FuelPump_label">Fuel Pump</string>
+    <string name="FuelPump_result">- - - -</string>
+    <string name="Tachometer_label">Tachometer</string>
+    <string name="Tachometer_result">- - - -</string>
+
+    <!-- Info View -->
+    <string name="Logger_label">Logger Info</string>
+    <string name="LoggerResult_label">Result</string>
+    <string name="Bluetooth_label">Bluetooth Module</string>
+    <string name="Bluetooth_result">- - - -</string>
+    <string name="Firmware_label">Firmware Version</string>
+    <string name="Firmware_result">- - - -</string>
+    <string name="Calibration_label">5v Calibration</string>
+    <string name="Calibration_result">- - - -</string>
+    <string name="SD_Card_label">SD Card</string>
+    <string name="SD_Card_result">- - - -</string>
+    <string name="Config_label">Config File</string>
+    <string name="Config_File_result">- - - -</string>
+    <string name="Fault_Codes_label">Fault Codes</string>
+    <string name="Fault_Codes_result">- - - -</string>
+    <string name="Fault_Clear_label">Faults Cleared</string>
+    <string name="Fault_Clear_result">- - - -</string>
+    <string name="Log_label">Log File</string>
+    <string name="Log_result">- - - -</string>
+    <string name="Ignition_label">Ignition</string>
+    <string name="Ignition_result">- - - -</string>
+    <string name="Engine_label">Engine Temp</string>
+    <string name="Engine_result">- - - -</string>
+    <string name="AFR_label">AFR Temp</string>
+    <string name="AFR_result">- - - -</string>
+    <string name="Mode_label">Logger Mode</string>
+    <string name="Mode_result">- - - -</string>
+
+
+    <!-- Message data -->
+    <string name="Testing_message">Testing</string>
+    <string name="Passed_message">Passed</string>
+    <string name="Failed_message">Failed</string>
+    <string name="OK_message">OK</string>
+    <string name="ON_message">On</string>
+    <string name="IGN_ON_message">Switch IGN On</string>
+    <string name="IGN_OFF_message">Switch IGN Off</string>
+    <string name="Yes_message">Yes</string>
+    <string name="No_message">No</string>
+    <string name="Start_ENG_message">Start Engine</string>
+    <string name="AFR_NA_message">AFR not in use</string>
+    <string name="AFR_Err_message">AFR Error</string>
+    <string name="AFR_Cold_message">AFR Cold</string>
+    <string name="AFR_Ready_message">AFR Ready</string>
+    <string name="Eng_Cold_message">Engine Cold</string>
+    <string name="Eng_Warm_message">Engine_Warm</string>
+    <string name="Cold_message">Cold</string>
+    <string name="Warm_message">Warm</string>
+    <string name="Error_message">Error</string>
+    <string name="NA_message">NA</string>
+    <string name="Connected_message">ECU Connected</string>
+    <string name="TimeOut_message">TimeOut - Rebooting</string>
+    <string name="Clear_message"> </string>
+
+
+    <string name="Data1_message">Fast Logging</string>
+    <string name="Data2_message">Map View</string>
+    <string name="Data3_message">Data View</string>
+    <string name="Data4_message">Test</string>
+
+
+
 
     <!-- Menu items -->
     <string name="menu_connect">Connect</string>
     <string name="menu_disconnect">Disconnect</string>
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
-
     <string name="menu_data_view">Data View</string>
 </resources>
