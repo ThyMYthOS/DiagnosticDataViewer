@@ -122,7 +122,7 @@
     <string name="AFR_Cold_message">AFR Cold</string>
     <string name="AFR_Ready_message">AFR Ready</string>
     <string name="Eng_Cold_message">Engine Cold</string>
-    <string name="Eng_Warm_message">Engine_Warm</string>
+    <string name="Eng_Warm_message">Engine Warm</string>
     <string name="Cold_message">Cold</string>
     <string name="Warm_message">Warm</string>
     <string name="Error_message">Error</string>

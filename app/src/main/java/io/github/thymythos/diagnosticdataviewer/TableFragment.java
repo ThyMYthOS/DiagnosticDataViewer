@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import java.util.Random;
+
 
 
 /**
@@ -83,6 +85,10 @@ public class TableFragment extends Fragment {
         TableLayout.LayoutParams rowLayout = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 0, 1f / 17f);
         TableRow.LayoutParams colLayout = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f / 17f);
         TableLayout table = view.findViewById(R.id.table);
+
+        int x = 0;
+        // while (x == 0) {
+
         for (int row = 0; row < 17; row++) {
             TableRow tableRow = new TableRow(table.getContext());
             tableRow.setLayoutParams(rowLayout);
@@ -102,9 +108,10 @@ public class TableFragment extends Fragment {
                 text = new TextView(tableRow.getContext());
                 if (row < 16) {
 
-                    text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
-
-                    text.setBackground(gdRed);
+                    //text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
+                    Random rand = new Random();
+                    int randomNum = rand.nextInt((10 - 1) + 1) + 1;
+                    if (randomNum < 4) text.setBackground(gdRed);
 
                     text.setLayoutParams(colLayout);
                 } else {
@@ -122,6 +129,9 @@ public class TableFragment extends Fragment {
         }
 
         return view;
+
+
     }
 
 }
+
