@@ -102,6 +102,8 @@
     <string name="Engine_result">- - - -</string>
     <string name="AFR_label">AFR Temp</string>
     <string name="AFR_result">- - - -</string>
+    <string name="Auto_Switch_label">Fast Log Start</string>
+    <string name="Auto_Switch_result">- - - -</string>
     <string name="Mode_label">Logger Mode</string>
     <string name="Mode_result">- - - -</string>
 
@@ -129,13 +131,18 @@
     <string name="NA_message">NA</string>
     <string name="Connected_message">ECU Connected</string>
     <string name="TimeOut_message">TimeOut - Rebooting</string>
+    <string name="Fast_Logging_message">Fast Logging</string>
     <string name="Clear_message"> </string>
 
+    <string name="AutoSwitch0_message">None</string>
+    <string name="AutoSwitch1_message">In Gear</string>
+    <string name="AutoSwitch2_message">After 10mins</string>
+    <string name="AutoSwitch3_message">Immediately</string>
 
-    <string name="Data1_message">Fast Logging</string>
-    <string name="Data2_message">Map View</string>
-    <string name="Data3_message">Data View</string>
-    <string name="Data4_message">Test</string>
+    <string name="Mode1_message">Fast Logging</string>
+    <string name="Mode2_message">Map View</string>
+    <string name="Mode3_message">Data View</string>
+    <string name="Mode4_message">Test</string>
 
 
 

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:text="@string/Logger_label"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:text="@string/LoggerResult_label"
             android:textAlignment="textEnd"
             android:textSize="18sp"
@@ -138,6 +138,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_Log_result" />
 
+
+        <TextView
+            android:id="@+id/label_AutoSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Auto_Switch_label"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_Firmware" />
+
+        <TextView
+            android:id="@+id/label_AutoSwitch_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Auto_Switch_result"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_Firmware_result" />
+
         <TextView
             android:id="@+id/label_Mode"
             android:layout_width="wrap_content"
@@ -147,7 +171,7 @@
             android:text="@string/Mode_label"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_Firmware" />
+            app:layout_constraintTop_toBottomOf="@+id/label_AutoSwitch" />
 
         <TextView
             android:id="@+id/label_Mode_result"
@@ -159,7 +183,7 @@
             android:textAlignment="textEnd"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_Firmware_result" />
+            app:layout_constraintTop_toBottomOf="@+id/label_AutoSwitch_result" />
 
         <TextView
             android:id="@+id/label_Ignition"

@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.NavigationView;
@@ -21,8 +22,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,6 +34,8 @@ import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity
+
+
         implements NavigationView.OnNavigationItemSelectedListener {
     public final static String SETTINGS_BLUETOOTH = "BLUETOOTH";
     public final static String SETTING_DEVICE_ADDRESS = "SETTING_DEVICE_ADDRESS";
@@ -116,6 +121,8 @@ public class MainActivity extends AppCompatActivity
             String[] separated = data.split(",");
             Integer dataType = Integer.valueOf(separated[0]);
 
+
+
             // TODO: Use different characteristics instead of multiplexing the data into one
             switch (dataType) {
                 case 1:
@@ -123,6 +130,7 @@ public class MainActivity extends AppCompatActivity
                     RPM_data.setText(String.valueOf(separated[1]));
                     TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
                     Message_data.setText(getString(R.string.Connected_message));
+
                     break;
                 case 2:
                     TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
@@ -283,6 +291,9 @@ public class MainActivity extends AppCompatActivity
                             .replace(R.id.content_frame, fragment)
                             .commit();
                     break;
+                case 17:
+                    Message_data.setText(getString(R.string.Fast_Logging_message));
+                    break;
 
             }
 
@@ -307,6 +318,18 @@ public class MainActivity extends AppCompatActivity
                     firm.setText(firmware);
                     break;
                 case 4:
+                    TextView autoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
+                    Integer autoSwitchType = Integer.valueOf(result);
+                    if (autoSwitchType==0) {
+                        autoSwitch.setText(getString(R.string.AutoSwitch0_message));
+                    } else if (autoSwitchType==1) {
+                        autoSwitch.setText(getString(R.string.AutoSwitch1_message));
+                    } else if (autoSwitchType==2) {
+                        autoSwitch.setText(getString(R.string.AutoSwitch2_message));
+                    }
+
+                    break;
+                case 5:
                     TextView mode = (TextView) (findViewById(R.id.label_Mode_result));
                     Integer modeType = Integer.valueOf(result);
 
@@ -322,20 +345,19 @@ public class MainActivity extends AppCompatActivity
                      }
 
                     if (modeType==1) {
-                        mode.setText(getString(R.string.Data1_message));
+                        mode.setText(getString(R.string.Mode1_message));
+                        TextView newAutoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
+                        newAutoSwitch.setText(getString(R.string.AutoSwitch3_message));
                     } else if (modeType==2) {
-                        mode.setText(getString(R.string.Data2_message));
+                        mode.setText(getString(R.string.Mode2_message));
                     } else if (modeType==3) {
-                        mode.setText(getString(R.string.Data3_message));
+                        mode.setText(getString(R.string.Mode3_message));
                     }
 
                     TextView ignOn = (TextView) (findViewById(R.id.label_Ignition_result));
                     ignOn.setText(getString(R.string.ON_message));
                     break;
-                case 5:
-                    TextView duration = (TextView) (findViewById(R.id.label_Firmware_result));
-                    duration.setText(result);
-                    break;
+
             }
         }
 
