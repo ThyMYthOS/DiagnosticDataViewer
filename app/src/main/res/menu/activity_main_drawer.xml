@@ -9,9 +9,13 @@
             android:icon="@drawable/ic_menu_text_view"
             android:title="@string/info_view" />
         <item
-            android:id="@+id/nav_text_view"
+            android:id="@+id/nav_idle_view"
             android:icon="@drawable/ic_menu_text_view"
-            android:title="@string/text_view" />
+            android:title="@string/idle_view" />
+        <item
+            android:id="@+id/nav_monitor_view"
+            android:icon="@drawable/ic_menu_text_view"
+            android:title="@string/monitor_view" />
         <item
             android:id="@+id/nav_graph_view"
             android:icon="@drawable/ic_menu_graph_view"
@@ -26,17 +30,6 @@
             android:title="@string/actuator_view" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
 
 </menu>

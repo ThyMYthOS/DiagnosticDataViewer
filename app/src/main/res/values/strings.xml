@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DiagnosticDataViewer</string>
+    <string name="app_name">16m Diagnostic Data Viewer</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -9,11 +9,12 @@
     <string name="graph_fragment">Graph Fragment</string>
     <string name="table_fragment">Table fragment</string>
     <string name="actuator_fragment">Actuator fragment</string>
-    <string name="info_view">Info</string>
-    <string name="text_view">Data</string>
-    <string name="graph_view">Graph</string>
-    <string name="table_view">Table</string>
-    <string name="actuator_view">Actuator Test</string>
+    <string name="info_view">Logger Info</string>
+    <string name="idle_view">Idle Setup</string>
+    <string name="monitor_view">Monitor</string>
+    <string name="graph_view">Graph View</string>
+    <string name="table_view">Map View</string>
+    <string name="actuator_view">Actuator Tests</string>
 
     <!-- BLE stuff -->
     <string name="ble_not_supported">BLE is not supported</string>
@@ -61,8 +62,11 @@
     <string name="AN4_data">- - - -</string>
     <string name="Message_data">    </string>
 
+    <string name="Idle_AFR1_label">AFR1</string>
+    <string name="Idle_AFR2_label">AFR2</string>
+
     <!-- Actuator Test -->
-    <string name="ActuatorTest_label">Test</string>
+    <string name="ActuatorTest_label">Actuator</string>
     <string name="ActuatorResult_label">Result</string>
     <string name="Injector1_label">Injector1</string>
     <string name="Injector1_result">- - - -</string>

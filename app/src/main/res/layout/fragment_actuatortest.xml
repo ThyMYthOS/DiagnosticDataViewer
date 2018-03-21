@@ -45,138 +45,126 @@
             android:id="@+id/label_Injector1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
             android:text="@string/Injector1_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_ActuatorTest"
             app:layout_constraintTop_toBottomOf="@+id/label_ActuatorTest" />
 
         <TextView
             android:id="@+id/label_Injector1_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="20dp"
             android:text="@string/Injector1_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_ActuatorTest" />
+            app:layout_constraintEnd_toEndOf="@+id/label_ActuatorResult"
+            app:layout_constraintTop_toBottomOf="@+id/label_ActuatorResult" />
 
         <TextView
             android:id="@+id/label_Injector2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Injector2_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_Injector1"
             app:layout_constraintTop_toBottomOf="@+id/label_Injector1" />
 
         <TextView
             android:id="@+id/label_Injector2_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Injector2_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_Injector1_result"
             app:layout_constraintTop_toBottomOf="@+id/label_Injector1_result" />
 
         <TextView
             android:id="@+id/label_Coil1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Coil1_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_Injector2"
             app:layout_constraintTop_toBottomOf="@+id/label_Injector2" />
 
         <TextView
             android:id="@+id/label_Coil1_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Coil1_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_Injector2_result"
             app:layout_constraintTop_toBottomOf="@+id/label_Injector2_result" />
 
         <TextView
             android:id="@+id/label_Coil2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Coil2_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_Coil1"
             app:layout_constraintTop_toBottomOf="@+id/label_Coil1" />
 
         <TextView
             android:id="@+id/label_Coil2_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Coil2_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_Coil1_result"
             app:layout_constraintTop_toBottomOf="@+id/label_Coil1_result" />
 
         <TextView
             android:id="@+id/label_FuelPump"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/FuelPump_label"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_Coil2"
             app:layout_constraintTop_toBottomOf="@+id/label_Coil2" />
 
         <TextView
             android:id="@+id/label_FuelPump_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/FuelPump_result"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_Coil2_result"
             app:layout_constraintTop_toBottomOf="@+id/label_Coil2_result" />
 
         <TextView
             android:id="@+id/label_Tachometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Tachometer_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_FuelPump"
             app:layout_constraintTop_toBottomOf="@+id/label_FuelPump" />
 
         <TextView
             android:id="@+id/label_Tachometer_Result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/Tachometer_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_FuelPump_result"
             app:layout_constraintTop_toBottomOf="@+id/label_FuelPump_result" />
 
 

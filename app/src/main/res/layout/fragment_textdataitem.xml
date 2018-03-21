@@ -16,52 +16,52 @@
 
         <TextView
             android:id="@+id/label_RPM"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:text="@string/RPM_label"
             android:textAlignment="center"
             android:textSize="22sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/label_RPM_data"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="5dp"
             android:text="@string/RPM_data"
             android:textAlignment="center"
             android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_RPM"
+            app:layout_constraintStart_toStartOf="@+id/label_RPM"
             app:layout_constraintTop_toBottomOf="@+id/label_RPM" />
 
         <TextView
             android:id="@+id/label_TPS"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="50dp"
             android:layout_marginTop="10dp"
             android:text="@string/TPS_label"
             android:textAlignment="center"
             android:textSize="22sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/label_TPS_data"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginEnd="50dp"
             android:layout_marginTop="5dp"
             android:text="@string/RPM_data"
             android:textAlignment="center"
             android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/label_TPS"
+            app:layout_constraintStart_toStartOf="@+id/label_TPS"
             app:layout_constraintTop_toBottomOf="@+id/label_TPS" />
 
         <TextView
@@ -91,230 +91,210 @@
             android:id="@+id/label_AFR2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AFR2_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_AFR1"
             app:layout_constraintTop_toBottomOf="@+id/label_AFR1" />
 
         <TextView
             android:id="@+id/label_AFR2_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AFR2_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_AFR1_data"
             app:layout_constraintTop_toBottomOf="@+id/label_AFR1_data" />
 
         <TextView
             android:id="@+id/label_CTS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/CTS_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_AFR2"
             app:layout_constraintTop_toBottomOf="@+id/label_AFR2" />
 
         <TextView
             android:id="@+id/label_CTS_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/CTS_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_AFR2_data"
             app:layout_constraintTop_toBottomOf="@+id/label_AFR2_data" />
 
         <TextView
             android:id="@+id/label_IAT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/IAT_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_CTS"
             app:layout_constraintTop_toBottomOf="@+id/label_CTS" />
 
         <TextView
             android:id="@+id/label_IAT_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/IAT_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_CTS_data"
             app:layout_constraintTop_toBottomOf="@+id/label_CTS_data" />
 
         <TextView
             android:id="@+id/label_AP_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AP_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_IAT_data"
             app:layout_constraintTop_toBottomOf="@+id/label_IAT_data" />
 
         <TextView
             android:id="@+id/label_AP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AP_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_IAT"
             app:layout_constraintTop_toBottomOf="@+id/label_IAT" />
 
         <TextView
             android:id="@+id/label_BV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/BV_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_AP"
             app:layout_constraintTop_toBottomOf="@+id/label_AP" />
 
         <TextView
             android:id="@+id/label_BV_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/BV_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_AP_data"
             app:layout_constraintTop_toBottomOf="@+id/label_AP_data" />
 
         <TextView
             android:id="@+id/label_INJ1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/INJ1_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_BV"
             app:layout_constraintTop_toBottomOf="@+id/label_BV" />
 
         <TextView
             android:id="@+id/label_INJ1_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/INJ1_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_BV_data"
             app:layout_constraintTop_toBottomOf="@+id/label_BV_data" />
 
         <TextView
             android:id="@+id/label_INJ2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/INJ2_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_INJ1"
             app:layout_constraintTop_toBottomOf="@+id/label_INJ1" />
 
         <TextView
             android:id="@+id/label_INJ2_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/INJ2_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_INJ1_data"
             app:layout_constraintTop_toBottomOf="@+id/label_INJ1_data" />
 
         <TextView
             android:id="@+id/label_ADV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/ADV_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_INJ2"
             app:layout_constraintTop_toBottomOf="@+id/label_INJ2" />
 
         <TextView
             android:id="@+id/label_ADV_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/ADV_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_INJ2_data"
             app:layout_constraintTop_toBottomOf="@+id/label_INJ2_data" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AN3_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/label_ADV"
             app:layout_constraintTop_toBottomOf="@+id/label_ADV" />
 
         <TextView
             android:id="@+id/label_AN3_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AN3_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_ADV_data"
             app:layout_constraintTop_toBottomOf="@+id/label_ADV_data" />
 
         <TextView
             android:id="@+id/label_AN4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AN4_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <TextView
             android:id="@+id/label_AN4_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="8dp"
             android:text="@string/AN4_data"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/label_AN3_data"
             app:layout_constraintTop_toBottomOf="@+id/label_AN3_data" />
 
         <TextView
