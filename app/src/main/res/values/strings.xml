@@ -9,12 +9,20 @@
     <string name="graph_fragment">Graph Fragment</string>
     <string name="table_fragment">Table fragment</string>
     <string name="actuator_fragment">Actuator fragment</string>
-    <string name="info_view">Logger Info</string>
-    <string name="idle_view">Idle Setup</string>
-    <string name="monitor_view">Monitor</string>
-    <string name="graph_view">Graph View</string>
-    <string name="table_view">Map View</string>
-    <string name="actuator_view">Actuator Tests</string>
+
+    <string name="info_menu">Logger Startup</string>
+    <string name="afr_menu">AFR View</string>
+    <string name="monitor_menu">Monitor View</string>
+    <string name="graph_menu">Graph View</string>
+    <string name="table_menu">Map View</string>
+    <string name="actuator_menu">Actuator Tests</string>
+
+    <string name="info_title">Startup</string>
+    <string name="afr_title">AFR</string>
+    <string name="monitor_title">Monitor</string>
+    <string name="graph_title">Graph</string>
+    <string name="table_title">Map</string>
+    <string name="actuator_title">Actuators</string>
 
     <!-- BLE stuff -->
     <string name="ble_not_supported">BLE is not supported</string>
@@ -144,7 +152,7 @@
     <string name="AutoSwitch3_message">Immediately</string>
 
     <string name="Mode1_message">Fast Logging</string>
-    <string name="Mode2_message">Map View</string>
+    <string name="Mode2_message">AFR View</string>
     <string name="Mode3_message">Data View</string>
     <string name="Mode4_message">Test</string>
 

@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity
                     // Insert the fragment by replacing any existing fragment
                     Fragment fragment = null;
                     fragment = LoggerInfoFragment.newInstance();
-                    getSupportActionBar().setTitle(R.string.Clear_message);
+                    getSupportActionBar().setTitle(R.string.info_title);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.content_frame, fragment)
@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity
                         // Insert the fragment by replacing any existing fragment
                         Fragment fragment = null;
                         fragment = ActuatorTestFragment.newInstance();
-                        getSupportActionBar().setTitle(R.string.Clear_message);
+                        getSupportActionBar().setTitle(R.string.actuator_title);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.content_frame, fragment)
@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.Clear_message);
+        getSupportActionBar().setTitle(R.string.info_title);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -513,7 +513,16 @@ public class MainActivity extends AppCompatActivity
         } else {
             menu.findItem(R.id.menu_connect).setVisible(true);
             menu.findItem(R.id.menu_disconnect).setVisible(false);
-        }
+
+            Fragment fragment = null;
+            fragment = LoggerInfoFragment.newInstance();
+            getSupportActionBar().setTitle(R.string.info_title);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+
+             }
         return true;
     }
 
@@ -537,6 +546,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -546,22 +556,22 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_info_view) {
             fragment = LoggerInfoFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.Clear_message);
+            getSupportActionBar().setTitle(R.string.info_title);
         } else if (id == R.id.nav_idle_view) {
-                fragment = IdleFragment.newInstance();
-                getSupportActionBar().setTitle(R.string.Clear_message);
+                fragment = AFRFragment.newInstance();
+                getSupportActionBar().setTitle(R.string.afr_title);
             } else if (id == R.id.nav_monitor_view) {
             fragment = TextDataItemFragment.newInstance();
-             getSupportActionBar().setTitle(R.string.Clear_message);
+             getSupportActionBar().setTitle(R.string.monitor_title);
         } else if (id == R.id.nav_graph_view) {
             fragment = new GraphFragment();
-            getSupportActionBar().setTitle(R.string.Clear_message);
+            getSupportActionBar().setTitle(R.string.graph_title);
         } else if (id == R.id.nav_table_view) {
             fragment = TableFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.Clear_message);
+            getSupportActionBar().setTitle(R.string.table_title);
         } else if (id == R.id.nav_actuator_view) {
             fragment = ActuatorTestFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.Clear_message);
+            getSupportActionBar().setTitle(R.string.actuator_title);
 //        } else if (id == R.id.nav_manage) {
 //
 //        } else if (id == R.id.nav_share) {
