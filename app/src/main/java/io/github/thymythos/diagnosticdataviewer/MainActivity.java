@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,9 +37,12 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity
 
 
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
     public final static String SETTINGS_BLUETOOTH = "BLUETOOTH";
     public final static String SETTING_DEVICE_ADDRESS = "SETTING_DEVICE_ADDRESS";
+    public static long logStart = System.currentTimeMillis();
+    public static int logLastTime;
+    public boolean resetTime;
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
@@ -108,6 +112,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+
         private void updateConnectionState(final int resourceId) {
             runOnUiThread(new Runnable() {
                 @Override
@@ -115,6 +120,26 @@ public class MainActivity extends AppCompatActivity
                     // TODO Set device name in title or drawer
                 }
             });
+
+        }
+
+        public void displayLogTime() {
+
+            if (!resetTime) { // reset log timer
+                resetTime=true;
+                logStart = System.currentTimeMillis();
+            }
+            int logDuration= (int) (System.currentTimeMillis()-logStart)/1000;
+            TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+            if (logDuration-logLastTime>0) {
+
+                String logTimeFormat = String.format(" %02d:%02d:%02d",
+                        (logDuration % 86400)/3600,(logDuration % 3600)/60,(logDuration % 60));
+
+                Message_data.setText(getString(R.string.LogTime_label) + logTimeFormat);
+                logLastTime=logDuration;
+
+            }
         }
 
         private void displayData(String data) {
@@ -126,23 +151,38 @@ public class MainActivity extends AppCompatActivity
             // TODO: Use different characteristics instead of multiplexing the data into one
             switch (dataType) {
                 case 1:
+                    displayLogTime();
                     TextView RPM_data = (TextView) (findViewById(R.id.label_RPM_data));
-                    RPM_data.setText(String.valueOf(separated[1]));
-                    TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
-                    Message_data.setText(getString(R.string.Connected_message));
+                    RPM_data.setText(separated[1]);
 
                     break;
                 case 2:
                     TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
-                    TPS_data.setText(String.valueOf(separated[1]));
+                    TPS_data.setText(separated[1]);
                     break;
                 case 3:
                     TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
-                    AFR1_data.setText(String.valueOf(separated[1]));
+                    AFR1_data.setText(separated[1]);
+                    Double AFR1d= Double.parseDouble(separated[1]);
+                    if (AFR1d < 12.8) {
+                        AFR1_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        } else if (AFR1d > 13.8) {
+                        AFR1_data.setTextColor(Color.parseColor("#00cc00")); //green
+                            } else {
+                            AFR1_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                            }
                     break;
                 case 4:
                     TextView AFR2_data = (TextView) (findViewById(R.id.label_AFR2_data));
-                    AFR2_data.setText(String.valueOf(separated[1]));
+                    AFR2_data.setText(separated[1]);
+                    Double AFR2d= Double.parseDouble(separated[1]);
+                    if (AFR2d < 12.8) {
+                        AFR2_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        } else if (AFR2d > 13.8) {
+                        AFR2_data.setTextColor(Color.parseColor("#00cc00")); //green
+                            } else {
+                            AFR2_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                            }
                     break;
                 case 5:
                     TextView N_data = (TextView) (findViewById(R.id.label_N_Data));
@@ -162,39 +202,39 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 7:
                     TextView CTS_data = (TextView) (findViewById(R.id.label_CTS_data));
-                    CTS_data.setText(String.valueOf(separated[1]));
+                    CTS_data.setText(separated[1]);
                     break;
                 case 8:
                     TextView IAT_data = (TextView) (findViewById(R.id.label_IAT_data));
-                    IAT_data.setText(String.valueOf(separated[1]));
+                    IAT_data.setText(separated[1]);
                     break;
                 case 9:
                     TextView ADV_data = (TextView) (findViewById(R.id.label_ADV_data));
-                    ADV_data.setText(String.valueOf(separated[1]));
+                    ADV_data.setText(separated[1]);
                     break;
                 case 11:
                     TextView INJ1_data = (TextView) (findViewById(R.id.label_INJ1_data));
-                    INJ1_data.setText(String.valueOf(separated[1]));
+                    INJ1_data.setText(separated[1]);
                     break;
                 case 13:
                     TextView INJ2_data = (TextView) (findViewById(R.id.label_INJ2_data));
-                    INJ2_data.setText(String.valueOf(separated[1]));
+                    INJ2_data.setText(separated[1]);
                     break;
                 case 14:
                     TextView AP_data = (TextView) (findViewById(R.id.label_AP_data));
-                    AP_data.setText(String.valueOf(separated[1]));
+                    AP_data.setText(separated[1]);
                     break;
                 case 15:
                     TextView BV_data = (TextView) (findViewById(R.id.label_BV_data));
-                    BV_data.setText(String.valueOf(separated[1]));
+                    BV_data.setText(separated[1]);
                     break;
                 case 16://
                     TextView AN3_data = (TextView) (findViewById(R.id.label_AN3_data));
-                    AN3_data.setText(String.valueOf(separated[1]));
+                    AN3_data.setText(separated[1]);
                     break;
                 case 17:
                     TextView AN4_data = (TextView) (findViewById(R.id.label_AN4_data));
-                    AN4_data.setText(String.valueOf(separated[1]));
+                    AN4_data.setText(separated[1]);
                     break;
                 case 96:
                     actuatorTest(separated[1], separated[2]);
@@ -281,8 +321,7 @@ public class MainActivity extends AppCompatActivity
                 case 15:
                     Message_data.setText(getString(R.string.TimeOut_message));
                     break;
-                case 16:
-                    // Insert the fragment by replacing any existing fragment
+                case 16: // back to info screen
                     Fragment fragment = null;
                     fragment = LoggerInfoFragment.newInstance();
                     getSupportActionBar().setTitle(R.string.info_title);
@@ -291,8 +330,14 @@ public class MainActivity extends AppCompatActivity
                             .replace(R.id.content_frame, fragment)
                             .commit();
                     break;
-                case 17:
-                    Message_data.setText(getString(R.string.Fast_Logging_message));
+                case 17: // fast logging
+                        Fragment fragment1 = null;
+                        fragment1 = FastLoggingFragment.newInstance();
+                        getSupportActionBar().setTitle(R.string.afr_title);
+                        FragmentManager fragmentManager1 = getFragmentManager();
+                        fragmentManager1.beginTransaction()
+                                .replace(R.id.content_frame, fragment1)
+                                .commit();
                     break;
 
             }
@@ -310,7 +355,7 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     TextView logNameView = (TextView) (findViewById(R.id.label_Log_result));
                     String[] logName = result.split(".csv");
-                    logNameView.setText(String.valueOf(logName[0]));
+                    logNameView.setText(logName[0]);
                     break;
                 case 3:
                     TextView firm = (TextView) (findViewById(R.id.label_Firmware_result));
@@ -435,6 +480,8 @@ public class MainActivity extends AppCompatActivity
 
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -503,6 +550,8 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -580,6 +629,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+
         if (fragment != null) {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getFragmentManager();
@@ -592,4 +642,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

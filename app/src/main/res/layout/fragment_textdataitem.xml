@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/RPM_label"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/RPM_data"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/label_RPM"
             app:layout_constraintStart_toStartOf="@+id/label_RPM"
@@ -47,7 +47,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/TPS_label"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/RPM_data"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/label_TPS"
             app:layout_constraintStart_toStartOf="@+id/label_TPS"
@@ -327,6 +327,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+
+
         <TextView
             android:id="@+id/label_Message_data"
             android:layout_width="wrap_content"
@@ -337,13 +339,11 @@
             android:text="@string/Message_data"
             android:textAlignment="center"
             android:textColor="?attr/colorError"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-
 
     </android.support.constraint.ConstraintLayout>
 

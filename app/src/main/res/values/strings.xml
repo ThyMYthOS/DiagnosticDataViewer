@@ -69,6 +69,8 @@
     <string name="AN4_label">Analog Input 4</string>
     <string name="AN4_data">- - - -</string>
     <string name="Message_data">    </string>
+    <string name="LogTime_label">Log Time</string>
+
 
     <string name="Idle_AFR1_label">AFR1</string>
     <string name="Idle_AFR2_label">AFR2</string>
