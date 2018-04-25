@@ -31,11 +31,8 @@ import java.util.UUID;
 import de.nitri.gauge.Gauge;
 
 
-
 public class MainActivity extends AppCompatActivity
-
-
-    implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
     public final static String SETTINGS_BLUETOOTH = "BLUETOOTH";
     public final static String SETTING_DEVICE_ADDRESS = "SETTING_DEVICE_ADDRESS";
     public static long logStart = System.currentTimeMillis();
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity
     public static boolean centigrade = true;
     public static boolean idleView;
     public static boolean afrView;
-
 
 
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -63,7 +59,6 @@ public class MainActivity extends AppCompatActivity
                 finish();
             }
             // Automatically connects to the device upon successful start-up initialization.
-
             SharedPreferences settings = getSharedPreferences(SETTINGS_BLUETOOTH, MODE_PRIVATE);
             String deviceAddress = settings.getString(SETTING_DEVICE_ADDRESS, "");
             if (deviceAddress != "") {
@@ -77,8 +72,6 @@ public class MainActivity extends AppCompatActivity
             mBluetoothLeService = null;
         }
     };
-
-
 
 
     // Handles various events fired by the Service.
@@ -127,26 +120,22 @@ public class MainActivity extends AppCompatActivity
                     // TODO Set device name in title or drawer
                 }
             });
-
         }
 
         public void displayLogTime() {
-
             if (!resetTime) { // reset log timer
-                resetTime=true;
+                resetTime = true;
                 logStart = System.currentTimeMillis();
             }
-            int logDuration= (int) (System.currentTimeMillis()-logStart)/1000;
-            if (logDuration-logLastTime>0) {
+            int logDuration = (int) (System.currentTimeMillis() - logStart) / 1000;
+            if (logDuration - logLastTime > 0) {
                 TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
 
-
                 String logTimeFormat = String.format(" %02d:%02d:%02d",
-                        (logDuration % 86400)/3600,(logDuration % 3600)/60,(logDuration % 60));
+                        (logDuration % 86400) / 3600, (logDuration % 3600) / 60, (logDuration % 60));
 
                 Message_data.setText(getString(R.string.LogTime_label) + logTimeFormat);
-                logLastTime=logDuration;
-
+                logLastTime = logDuration;
             }
         }
 
@@ -154,18 +143,15 @@ public class MainActivity extends AppCompatActivity
             String[] separated = data.split(",");
             Integer dataType = Integer.valueOf(separated[0]);
 
-
-
             // TODO: Use different characteristics instead of multiplexing the data into one
             switch (dataType) {
                 case 1:
-
                     if (idleView) { // start log timer on 1st loop
                         Gauge gauge1 = findViewById(R.id.gauge1);
                         gauge1.setDeltaTimeInterval(1);
                         gauge1.setLowerText(separated[1]);
-                        float value=Float.valueOf(separated[1]);
-                        if (value>2000) value=2000;
+                        float value = Float.valueOf(separated[1]);
+                        if (value > 2000) value = 2000;
                         gauge1.moveToValue(value);
                     } else {
                         TextView RPM_data = (TextView) (findViewById(R.id.label_RPM_data));
@@ -178,9 +164,9 @@ public class MainActivity extends AppCompatActivity
                         Gauge gauge2 = findViewById(R.id.gauge2);
                         gauge2.setDeltaTimeInterval(1);
                         gauge2.setLowerText(separated[1]);
-                        float value=Float.valueOf(separated[1]);
-                        if (value<1) value=1;
-                        if (value>3) value=3;
+                        float value = Float.valueOf(separated[1]);
+                        if (value < 1) value = 1;
+                        if (value > 3) value = 3;
                         gauge2.moveToValue(value);
                     } else {
                         TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
@@ -188,17 +174,15 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 3:
-                    float afr1Value=Float.valueOf(separated[1]);
-                    if ((idleView || afrView) && afr1Value >0) {
+                    float afr1Value = Float.valueOf(separated[1]);
+                    if ((idleView || afrView) && afr1Value > 0) {
                         Gauge gauge3 = findViewById(R.id.gauge3);
                         gauge3.setDeltaTimeInterval(1);
                         gauge3.setLowerText(separated[1]);
-                        if (afr1Value<11) afr1Value=11;
-                        if (afr1Value>15) afr1Value=15;
+                        if (afr1Value < 11) afr1Value = 11;
+                        if (afr1Value > 15) afr1Value = 15;
                         gauge3.moveToValue(afr1Value);
                     } else {
-
-
                         TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
                         AFR1_data.setText(separated[1]);
                         Double AFR1d = Double.parseDouble(separated[1]);
@@ -212,16 +196,15 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 4:
-                    float afr2Value=Float.valueOf(separated[1]);
-                    if ((idleView || afrView) && afr2Value >0) {
+                    float afr2Value = Float.valueOf(separated[1]);
+                    if ((idleView || afrView) && afr2Value > 0) {
                         Gauge gauge4 = findViewById(R.id.gauge4);
                         gauge4.setDeltaTimeInterval(1);
                         gauge4.setLowerText(separated[1]);
-                        if (afr2Value<11) afr2Value=11;
-                        if (afr2Value>15) afr2Value=15;
+                        if (afr2Value < 11) afr2Value = 11;
+                        if (afr2Value > 15) afr2Value = 15;
                         gauge4.moveToValue(afr2Value);
                     } else {
-
                         TextView AFR2_data = (TextView) (findViewById(R.id.label_AFR2_data));
                         AFR2_data.setText(separated[1]);
                         Double AFR2d = Double.parseDouble(separated[1]);
@@ -253,12 +236,11 @@ public class MainActivity extends AppCompatActivity
                 case 7:
                     if (idleView) { // Display coolant temp in RPM dial
                         Gauge gauge1 = findViewById(R.id.gauge1);
-                        if (centigrade==true) {
+                        if (centigrade == true) {
                             gauge1.setUpperText(separated[1] + "°C");
-                        }  else {
+                        } else {
                             gauge1.setUpperText(separated[1] + "°F");
                         }
-
                     } else {
                         TextView CTS_data = (TextView) (findViewById(R.id.label_CTS_data));
                         CTS_data.setText(separated[1]);
@@ -307,7 +289,6 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
         }
-
 
 
         private void displayMessage(String message) {
@@ -399,13 +380,10 @@ public class MainActivity extends AppCompatActivity
                     getSupportActionBar().setTitle(R.string.fast_title);
                     FragmentManager fragmentManager1 = getFragmentManager();
                     fragmentManager1.beginTransaction()
-                             .replace(R.id.content_frame, fragment1)
-                             .commit();
-
+                            .replace(R.id.content_frame, fragment1)
+                            .commit();
                     break;
-
             }
-
         }
 
         private void displayValue(String value, String result) {
@@ -413,8 +391,8 @@ public class MainActivity extends AppCompatActivity
 
             switch (valueData) {
                 case 1:
-                    resetTime=false;
-                    logLastTime=0;
+                    resetTime = false;
+                    logLastTime = 0;
                     TextView ignOn = (TextView) (findViewById(R.id.label_Ignition_result));
                     ignOn.setText(getString(R.string.ON_message));
 
@@ -427,7 +405,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 2:
                     TextView firm = (TextView) (findViewById(R.id.label_Firmware_result));
-                    String firmware= result.replaceAll("\\s", ""); //remove spaces
+                    String firmware = result.replaceAll("\\s", ""); //remove spaces
                     firm.setText(firmware);
                     break;
                 case 3:
@@ -436,20 +414,19 @@ public class MainActivity extends AppCompatActivity
 
                     TextView autoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
                     Integer autoSwitchType = Integer.valueOf(result);
-                    if (autoSwitchType==0) {
+                    if (autoSwitchType == 0) {
                         autoSwitch.setText(getString(R.string.AutoSwitch0_message));
-                    } else if (autoSwitchType==1) {
+                    } else if (autoSwitchType == 1) {
                         autoSwitch.setText(getString(R.string.AutoSwitch1_message));
-                    } else if (autoSwitchType==2) {
+                    } else if (autoSwitchType == 2) {
                         autoSwitch.setText(getString(R.string.AutoSwitch2_message));
                     }
-
                     break;
                 case 4:
                     TextView mode = (TextView) (findViewById(R.id.label_Mode_result));
                     Integer modeType = Integer.valueOf(result);
 
-                    if (modeType==4){
+                    if (modeType == 4) {
                         // Insert the fragment by replacing any existing fragment
                         Fragment fragment = null;
                         fragment = ActuatorTestFragment.newInstance();
@@ -460,26 +437,22 @@ public class MainActivity extends AppCompatActivity
                                 .commit();
                         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                         navigationView.getMenu().getItem(5).setChecked(true);
-                     }
+                    }
 
-
-                    if (modeType==1) {
+                    if (modeType == 1) {
                         mode.setText(getString(R.string.Mode1_message));
                         TextView newAutoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
                         newAutoSwitch.setText(getString(R.string.AutoSwitch3_message));
-                    } else if (modeType==2) {
+                    } else if (modeType == 2) {
                         mode.setText(getString(R.string.Mode2_message));
-                    } else if (modeType==3) {
+                    } else if (modeType == 3) {
                         mode.setText(getString(R.string.Mode3_message));
                     }
-
-
                     break;
-
                 case 5:
                     TextView motorcycle = (TextView) (findViewById(R.id.label_Motorcycle_result));
                     char m = result.charAt(0);
-                    motorcycleModel=((int) m)-65;  // 0 to 12
+                    motorcycleModel = ((int) m) - 65;  // 0 to 12
                     switch (result) {
                         case "A":
                             motorcycle.setText(getString(R.string.Motorcycle_A));
@@ -519,15 +492,11 @@ public class MainActivity extends AppCompatActivity
                             break;
                     }
                     break;
-
                 case 6:
-                    centigrade=false;
+                    centigrade = false;
                     break;
-
             }
         }
-
-
 
         private void actuatorTest(String test, String result) {
             Integer testData = Integer.valueOf(test);
@@ -539,69 +508,58 @@ public class MainActivity extends AppCompatActivity
                     if (resultVal == 0) {
                         inj1Res.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            inj1Res.setText(getString(R.string.Passed_message));
-                        } else
-                            inj1Res.setText(getString(R.string.Failed_message));
+                        inj1Res.setText(getString(R.string.Passed_message));
+                    } else
+                        inj1Res.setText(getString(R.string.Failed_message));
                     break;
-
                 case 1:
                     TextView inj2Res = (TextView) (findViewById(R.id.label_Injector2_result));
                     if (resultVal == 0) {
                         inj2Res.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            inj2Res.setText(getString(R.string.Passed_message));
-                        } else
-                            inj2Res.setText(getString(R.string.Failed_message));
+                        inj2Res.setText(getString(R.string.Passed_message));
+                    } else
+                        inj2Res.setText(getString(R.string.Failed_message));
                     break;
-
                 case 2:
                     TextView coil1Res = (TextView) (findViewById(R.id.label_Coil1_result));
                     if (resultVal == 0) {
                         coil1Res.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            coil1Res.setText(getString(R.string.Passed_message));
-                        } else
-                            coil1Res.setText(getString(R.string.Failed_message));
+                        coil1Res.setText(getString(R.string.Passed_message));
+                    } else
+                        coil1Res.setText(getString(R.string.Failed_message));
                     break;
-
                 case 3:
                     TextView coil2Res = (TextView) (findViewById(R.id.label_Coil2_result));
                     if (resultVal == 0) {
                         coil2Res.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            coil2Res.setText(getString(R.string.Passed_message));
-                        } else
-                            coil2Res.setText(getString(R.string.Failed_message));
+                        coil2Res.setText(getString(R.string.Passed_message));
+                    } else
+                        coil2Res.setText(getString(R.string.Failed_message));
                     break;
-
                 case 4:
                     TextView fuelRes = (TextView) (findViewById(R.id.label_FuelPump_result));
                     if (resultVal == 0) {
                         fuelRes.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            fuelRes.setText(getString(R.string.Passed_message));
-                        } else
-                            fuelRes.setText(getString(R.string.Failed_message));
+                        fuelRes.setText(getString(R.string.Passed_message));
+                    } else
+                        fuelRes.setText(getString(R.string.Failed_message));
                     break;
-
                 case 5:
                     TextView tachRes = (TextView) (findViewById(R.id.label_Tachometer_Result));
                     if (resultVal == 0) {
                         tachRes.setText(getString(R.string.Testing_message));
                     } else if (resultVal == 1) {
-                            tachRes.setText(getString(R.string.Passed_message));
-                        } else
-                            tachRes.setText(getString(R.string.Failed_message));
-
+                        tachRes.setText(getString(R.string.Passed_message));
+                    } else
+                        tachRes.setText(getString(R.string.Failed_message));
                     break;
-
             }
         }
-
-
     };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -610,9 +568,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.info_title);
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -627,7 +582,6 @@ public class MainActivity extends AppCompatActivity
                 .add(R.id.content_frame, new StartupFragment())
                 .commit();
         navigationView.getMenu().getItem(0).setChecked(true);
-
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
@@ -678,7 +632,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -696,8 +649,7 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, fragment)
                     .commit();
-
-             }
+        }
         return true;
     }
 
@@ -721,14 +673,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        idleView=false;
-        afrView=false;
+        idleView = false;
+        afrView = false;
         Fragment fragment = null;
         if (id == R.id.nav_startup_view) {
             fragment = StartupFragment.newInstance();
@@ -736,14 +686,14 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_idle_view) {
             fragment = IdleFragment.newInstance();
             getSupportActionBar().setTitle(R.string.idle_title);
-            idleView=true;
+            idleView = true;
         } else if (id == R.id.nav_afr_view) {
             fragment = AFRFragment.newInstance();
             getSupportActionBar().setTitle(R.string.afr_title);
-            afrView=true;
+            afrView = true;
         } else if (id == R.id.nav_monitor_view) {
             fragment = MonitorFragment.newInstance();
-             getSupportActionBar().setTitle(R.string.monitor_title);
+            getSupportActionBar().setTitle(R.string.monitor_title);
         } else if (id == R.id.nav_graph_view) {
             fragment = new GraphFragment();
             getSupportActionBar().setTitle(R.string.graph_title);
@@ -753,14 +703,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_actuator_view) {
             fragment = ActuatorTestFragment.newInstance();
             getSupportActionBar().setTitle(R.string.actuator_title);
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-
         }
-
 
         if (fragment != null) {
             // Insert the fragment by replacing any existing fragment
@@ -774,6 +717,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 }

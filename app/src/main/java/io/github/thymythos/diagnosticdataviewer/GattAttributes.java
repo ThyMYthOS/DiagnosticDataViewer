@@ -22,7 +22,7 @@ import java.util.HashMap;
  * This class includes the GATT attributes.
  */
 public class GattAttributes {
-    private static HashMap<String, String> attributes = new HashMap();
+    private static HashMap<String, String> attributes = new HashMap<>();
     public static String DataLoggerService = "0f6ee9d0-c7fd-11e7-abc4-cec278b6b50a";
     public static String DataCharacteristic = "5cd84f08-c89e-11e7-abc4-cec278b6b50a";
 
