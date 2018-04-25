@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.NavigationView;
@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public final static String SETTINGS_BLUETOOTH = "BLUETOOTH";
     public final static String SETTING_DEVICE_ADDRESS = "SETTING_DEVICE_ADDRESS";
+
+    public static final float AFR_LOWER_LIMIT = 13.0f;
+    public static final float AFR_UPPER_LIMIT = 13.6f;
+
     public static long logStart = System.currentTimeMillis();
     public static int logLastTime;
     public static int motorcycleModel;
@@ -140,6 +144,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         private void displayData(String data) {
+            Resources res = getResources();
             String[] separated = data.split(",");
             Integer dataType = Integer.valueOf(separated[0]);
 
@@ -186,12 +191,12 @@ public class MainActivity extends AppCompatActivity
                         TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
                         AFR1_data.setText(separated[1]);
                         Double AFR1d = Double.parseDouble(separated[1]);
-                        if (AFR1d < 13) {
-                            AFR1_data.setTextColor(Color.parseColor("#ff0000")); //red
-                        } else if (AFR1d > 13.6) {
-                            AFR1_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                        if (AFR1d < AFR_LOWER_LIMIT) {
+                            AFR1_data.setTextColor(res.getColor(R.color.colorAFRrich));
+                        } else if (AFR1d > AFR_UPPER_LIMIT) {
+                            AFR1_data.setTextColor(res.getColor(R.color.colorAFRlean));
                         } else {
-                            AFR1_data.setTextColor(Color.parseColor("#00cc00")); //green
+                            AFR1_data.setTextColor(res.getColor(R.color.colorAFRok));
                         }
                     }
                     break;
@@ -208,29 +213,29 @@ public class MainActivity extends AppCompatActivity
                         TextView AFR2_data = (TextView) (findViewById(R.id.label_AFR2_data));
                         AFR2_data.setText(separated[1]);
                         Double AFR2d = Double.parseDouble(separated[1]);
-                        if (AFR2d < 13) {
-                            AFR2_data.setTextColor(Color.parseColor("#ff0000")); //red
-                        } else if (AFR2d > 13.6) {
-                            AFR2_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                        if (AFR2d < AFR_LOWER_LIMIT) {
+                            AFR2_data.setTextColor(res.getColor(R.color.colorAFRrich));
+                        } else if (AFR2d > AFR_UPPER_LIMIT) {
+                            AFR2_data.setTextColor(res.getColor(R.color.colorAFRlean));
                         } else {
-                            AFR2_data.setTextColor(Color.parseColor("#00cc00")); //green
+                            AFR2_data.setTextColor(res.getColor(R.color.colorAFRok));
                         }
                     }
                     break;
                 case 5:
                     TextView N_data = (TextView) (findViewById(R.id.label_N_Data));
                     if (Integer.valueOf(separated[1]) == 1) {
-                        N_data.setTextColor(Color.parseColor("#009900")); //green
+                        N_data.setTextColor(res.getColor(R.color.good));
                     } else {
-                        N_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        N_data.setTextColor(res.getColor(R.color.bad));
                     }
                     break;
                 case 6:
                     TextView EBS_data = (TextView) (findViewById(R.id.label_EBS_data));
                     if (Integer.valueOf(separated[1]) == 1) {
-                        EBS_data.setTextColor(Color.parseColor("#009900")); //green
+                        EBS_data.setTextColor(res.getColor(R.color.good));
                     } else {
-                        EBS_data.setTextColor(Color.parseColor("#ff0000")); //red
+                        EBS_data.setTextColor(res.getColor(R.color.bad));
                     }
                     break;
                 case 7:
