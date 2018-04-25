@@ -6,14 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LoggerInfoFragment extends Fragment {
+public class MonitorFragment extends Fragment {
 
-    public static LoggerInfoFragment newInstance() {
-        LoggerInfoFragment fragment = new LoggerInfoFragment();
+    public static MonitorFragment newInstance() {
+        MonitorFragment fragment = new MonitorFragment();
         return fragment;
     }
 
-    public LoggerInfoFragment() {
+    public MonitorFragment() {
 
 
     }
@@ -21,6 +21,6 @@ public class LoggerInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_loggerinfo, container, false);
+        return inflater.inflate(R.layout.fragment_monitor, container, false);
     }
 }

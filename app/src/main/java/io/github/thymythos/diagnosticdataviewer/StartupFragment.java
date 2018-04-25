@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-public class TextDataItemFragment extends Fragment {
+public class StartupFragment extends Fragment {
 
-    public static TextDataItemFragment newInstance() {
-        TextDataItemFragment fragment = new TextDataItemFragment();
+    public static StartupFragment newInstance() {
+        StartupFragment fragment = new StartupFragment();
         return fragment;
     }
 
-    public TextDataItemFragment() {
+    public StartupFragment() {
 
 
     }
@@ -22,6 +21,6 @@ public class TextDataItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_textdataitem, container, false);
+        return inflater.inflate(R.layout.fragment_startup, container, false);
     }
 }

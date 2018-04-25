@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">16m Diagnostic Data Viewer</string>
+    <string name="app_name">ECU Data Logger</string>
+
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -11,18 +12,22 @@
     <string name="actuator_fragment">Actuator fragment</string>
 
     <string name="info_menu">Logger Startup</string>
-    <string name="afr_menu">AFR View</string>
+    <string name="idle_menu">Idle Tune</string>
+    <string name="afr_menu">AFR Tune</string>
     <string name="monitor_menu">Monitor View</string>
     <string name="graph_menu">Graph View</string>
     <string name="table_menu">Map View</string>
     <string name="actuator_menu">Actuator Tests</string>
 
     <string name="info_title">Startup</string>
+    <string name="idle_title">Idle</string>
     <string name="afr_title">AFR</string>
     <string name="monitor_title">Monitor</string>
     <string name="graph_title">Graph</string>
     <string name="table_title">Map</string>
-    <string name="actuator_title">Actuators</string>
+    <string name="actuator_title">Tests</string>
+    <string name="fast_title">Fast Log</string>
+
 
     <!-- BLE stuff -->
     <string name="ble_not_supported">BLE is not supported</string>
@@ -71,9 +76,9 @@
     <string name="Message_data">    </string>
     <string name="LogTime_label">Log Time</string>
 
-
-    <string name="Idle_AFR1_label">AFR1</string>
-    <string name="Idle_AFR2_label">AFR2</string>
+    <string name="Gauge_start">- - -</string>
+    <string name="AFR1_gauge">AFR 1</string>
+    <string name="AFR2_gauge">AFR 2</string>
 
     <!-- Actuator Test -->
     <string name="ActuatorTest_label">Actuator</string>
@@ -91,7 +96,7 @@
     <string name="Tachometer_label">Tachometer</string>
     <string name="Tachometer_result">- - - -</string>
 
-    <!-- Info View -->
+    <!-- Start Up -->
     <string name="Logger_label">Logger Info</string>
     <string name="LoggerResult_label">Result</string>
     <string name="Bluetooth_label">Bluetooth Module</string>
@@ -120,6 +125,8 @@
     <string name="Auto_Switch_result">- - - -</string>
     <string name="Mode_label">Logger Mode</string>
     <string name="Mode_result">- - - -</string>
+    <string name="Motorcycle_label">Motorcycle</string>
+    <string name="Motorcycle_result">- - - -</string>
 
 
     <!-- Message data -->
@@ -146,6 +153,7 @@
     <string name="Connected_message">ECU Connected</string>
     <string name="TimeOut_message">TimeOut - Rebooting</string>
     <string name="Fast_Logging_message">Fast Logging</string>
+    <string name="No_BlueTooth_Data">** No BlueTooth Data **</string>
     <string name="Clear_message"> </string>
 
     <string name="AutoSwitch0_message">None</string>
@@ -155,8 +163,21 @@
 
     <string name="Mode1_message">Fast Logging</string>
     <string name="Mode2_message">AFR View</string>
-    <string name="Mode3_message">Data View</string>
+    <string name="Mode3_message">Monitor View</string>
     <string name="Mode4_message">Test</string>
+
+    <string name="Motorcycle_A">MV Agusta F41000</string>
+    <string name="Motorcycle_B">MV F4 750</string>
+    <string name="Motorcycle_C">MV B4 910</string>
+    <string name="Motorcycle_D">MV B4 750</string>
+    <string name="Motorcycle_E">Ducati 996</string>
+    <string name="Motorcycle_F">Ducati 916</string>
+    <string name="Motorcycle_G">Ducati 748</string>
+    <string name="Motorcycle_H">Ducati ST2</string>
+    <string name="Motorcycle_I">Ducati ST4</string>
+    <string name="Motorcycle_J">Cagiva</string>
+    <string name="Motorcycle_K">Laverda</string>
+    <string name="Motorcycle_L">Moto Guzzi</string>
 
 
 

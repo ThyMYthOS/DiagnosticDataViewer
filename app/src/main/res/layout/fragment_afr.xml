@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/afr"
     android:layout_width="match_parent"
@@ -13,7 +14,6 @@
         android:layout_height="match_parent"
         android:layout_column="0"
         android:layout_row="1">
-
         <TextView
             android:id="@+id/label_RPM"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:text="@string/RPM_data"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="36sp"
+            android:textSize="52sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/label_RPM"
             app:layout_constraintStart_toStartOf="@+id/label_RPM"
@@ -46,7 +46,7 @@
             android:id="@+id/label_TPS"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="50dp"
             android:text="@string/TPS_label"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -63,85 +63,54 @@
             android:text="@string/RPM_data"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="36sp"
+            android:textSize="52sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/label_TPS"
             app:layout_constraintStart_toStartOf="@+id/label_TPS"
             app:layout_constraintTop_toBottomOf="@+id/label_TPS" />
 
-        <TextView
-            android:id="@+id/label_AFR1"
-            android:layout_width="wrap_content"
+
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge3"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/Idle_AFR1_label"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_TPS_data" />
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            android:layout_marginBottom="5dp"
+            gauge:initialValue="10"
+            gauge:labelTextSize="42"
+            gauge:layout_constraintBottom_toBottomOf="parent"
+            gauge:layout_constraintStart_toStartOf="parent"
+            gauge:upperText="@string/AFR1_gauge"
+            gauge:maxValue="15"
+            gauge:minValue="11"
+            gauge:upperTextSize="60"
+            gauge:lowerTextSize="80"
+            gauge:totalNicks="60"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="0.1" />
 
-        <TextView
-            android:id="@+id/label_AFR1_data"
-            android:layout_width="wrap_content"
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge4"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/AFR1_data"
-            android:textAlignment="textEnd"
-            android:textColor="#000000"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/label_AFR1"
-            app:layout_constraintStart_toStartOf="@+id/label_AFR1"
-            app:layout_constraintTop_toBottomOf="@+id/label_AFR1" />
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            android:layout_marginBottom="5dp"
+            gauge:initialValue="10"
+            gauge:labelTextSize="42"
+            gauge:layout_constraintBottom_toBottomOf="parent"
+            gauge:layout_constraintEnd_toEndOf="parent"
+            gauge:upperText="@string/AFR2_gauge"
+            gauge:maxValue="15"
+            gauge:minValue="11"
+            gauge:upperTextSize="60"
+            gauge:lowerTextSize="80"
+            gauge:totalNicks="60"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="0.1" />
 
-        <TextView
-            android:id="@+id/label_AFR2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/Idle_AFR2_label"
-            android:textStyle="bold"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_TPS_data" />
-
-        <TextView
-            android:id="@+id/label_AFR2_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/AFR2_data"
-            android:textAlignment="textEnd"
-            android:textColor="#000000"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/label_AFR2"
-            app:layout_constraintStart_toStartOf="@+id/label_AFR2"
-            app:layout_constraintTop_toBottomOf="@+id/label_AFR2" />
-
-
-
-        <TextView
-            android:id="@+id/label_Message_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/Message_data"
-            android:textAlignment="center"
-            android:textColor="?attr/colorError"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-
-    </android.support.constraint.ConstraintLayout>
-
-
+</android.support.constraint.ConstraintLayout>
 </RelativeLayout>

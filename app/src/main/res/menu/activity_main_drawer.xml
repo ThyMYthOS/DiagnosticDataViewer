@@ -5,28 +5,32 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_info_view"
-            android:icon="@drawable/ic_menu_text_view"
+            android:id="@+id/nav_startup_view"
+            android:icon="@drawable/ic_start"
             android:title="@string/info_menu" />
         <item
             android:id="@+id/nav_idle_view"
-            android:icon="@drawable/ic_menu_text_view"
+            android:icon="@drawable/ic_afr"
+            android:title="@string/idle_menu" />
+        <item
+            android:id="@+id/nav_afr_view"
+            android:icon="@drawable/ic_afr"
             android:title="@string/afr_menu" />
         <item
             android:id="@+id/nav_monitor_view"
-            android:icon="@drawable/ic_menu_text_view"
+            android:icon="@drawable/ic_monitor"
             android:title="@string/monitor_menu" />
         <item
             android:id="@+id/nav_graph_view"
-            android:icon="@drawable/ic_menu_graph_view"
+            android:icon="@drawable/ic_graph"
             android:title="@string/graph_menu" />
         <item
             android:id="@+id/nav_table_view"
-            android:icon="@drawable/ic_menu_table_view"
+            android:icon="@drawable/ic_map"
             android:title="@string/table_menu" />
         <item
             android:id="@+id/nav_actuator_view"
-            android:icon="@drawable/ic_menu_table_view"
+            android:icon="@drawable/ic_check"
             android:title="@string/actuator_menu" />
     </group>
 

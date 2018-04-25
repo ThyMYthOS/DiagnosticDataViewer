@@ -2,7 +2,7 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_actuator"
+    android:id="@+id/nav_startup"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -42,47 +42,49 @@
 
 
         <TextView
-            android:id="@+id/label_SDcard"
+            android:id="@+id/label_Ignition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/SD_Card_label"
+            android:text="@string/Ignition_label"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/label_LoggerInfo"
             app:layout_constraintTop_toBottomOf="@+id/label_LoggerInfo" />
 
         <TextView
-            android:id="@+id/label_SDcard_result"
+            android:id="@+id/label_Ignition_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/SD_Card_result"
+            android:text="@string/Ignition_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/label_LoggerResult"
             app:layout_constraintTop_toBottomOf="@+id/label_LoggerResult" />
 
-
         <TextView
-            android:id="@+id/label_Calibration"
+            android:id="@+id/label_SDcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/Calibration_label"
+            android:text="@string/SD_Card_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_SDcard"
-            app:layout_constraintTop_toBottomOf="@+id/label_SDcard" />
+            app:layout_constraintStart_toStartOf="@+id/label_Ignition"
+            app:layout_constraintTop_toBottomOf="@+id/label_Ignition" />
 
         <TextView
-            android:id="@+id/label_Calibration_result"
+            android:id="@+id/label_SDcard_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/Calibration_result"
+            android:text="@string/SD_Card_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_SDcard_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_SDcard_result" />
+            app:layout_constraintEnd_toEndOf="@+id/label_Ignition_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_Ignition_result" />
+
+
+
 
 
         <TextView
@@ -93,8 +95,8 @@
             android:text="@string/Log_label"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_Calibration"
-            app:layout_constraintTop_toBottomOf="@+id/label_Calibration" />
+            app:layout_constraintStart_toStartOf="@+id/label_SDcard"
+            app:layout_constraintTop_toBottomOf="@+id/label_SDcard" />
 
         <TextView
             android:id="@+id/label_Log_result"
@@ -103,8 +105,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/Log_result"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_Calibration_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_Calibration_result" />
+            app:layout_constraintEnd_toEndOf="@+id/label_SDcard_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_SDcard_result" />
 
 
         <TextView
@@ -130,14 +132,35 @@
 
 
         <TextView
+            android:id="@+id/label_Config"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/Config_label"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/label_Firmware"
+            app:layout_constraintTop_toBottomOf="@+id/label_Firmware" />
+
+        <TextView
+            android:id="@+id/label_Config_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/Config_File_result"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/label_Firmware_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_Firmware_result" />
+
+        <TextView
             android:id="@+id/label_AutoSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/Auto_Switch_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_Firmware"
-            app:layout_constraintTop_toBottomOf="@+id/label_Firmware" />
+            app:layout_constraintStart_toStartOf="@+id/label_Config"
+            app:layout_constraintTop_toBottomOf="@+id/label_Config" />
 
         <TextView
             android:id="@+id/label_AutoSwitch_result"
@@ -147,8 +170,8 @@
             android:text="@string/Auto_Switch_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_Firmware_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_Firmware_result" />
+            app:layout_constraintEnd_toEndOf="@+id/label_Config_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_Config_result" />
 
         <TextView
             android:id="@+id/label_Mode"
@@ -172,25 +195,26 @@
             app:layout_constraintTop_toBottomOf="@+id/label_AutoSwitch_result" />
 
         <TextView
-            android:id="@+id/label_Ignition"
+            android:id="@+id/label_Motorcycle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/Ignition_label"
+            android:text="@string/Motorcycle_label"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/label_Mode"
             app:layout_constraintTop_toBottomOf="@+id/label_Mode" />
 
         <TextView
-            android:id="@+id/label_Ignition_result"
+            android:id="@+id/label_Motorcycle_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/Ignition_result"
+            android:text="@string/Motorcycle_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/label_Mode_result"
             app:layout_constraintTop_toBottomOf="@+id/label_Mode_result" />
+
 
         <TextView
             android:id="@+id/label_Fault_Codes"
@@ -199,8 +223,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/Fault_Codes_label"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_Ignition"
-            app:layout_constraintTop_toBottomOf="@+id/label_Ignition" />
+            app:layout_constraintStart_toStartOf="@+id/label_Motorcycle"
+            app:layout_constraintTop_toBottomOf="@+id/label_Motorcycle" />
 
         <TextView
             android:id="@+id/label_Fault_Codes_result"
@@ -210,8 +234,8 @@
             android:text="@string/Fault_Codes_result"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_Ignition_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_Ignition_result" />
+            app:layout_constraintEnd_toEndOf="@+id/label_Motorcycle_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_Motorcycle_result" />
 
         <TextView
             android:id="@+id/label_Fault_Clear"
@@ -235,26 +259,7 @@
             app:layout_constraintTop_toBottomOf="@+id/label_Fault_Codes_result" />
 
 
-        <TextView
-            android:id="@+id/label_Config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/Config_label"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_Fault_Clear"
-            app:layout_constraintTop_toBottomOf="@+id/label_Fault_Clear" />
 
-        <TextView
-            android:id="@+id/label_Config_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/Config_File_result"
-            android:textAlignment="textEnd"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_Fault_Clear_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_Fault_Clear_result" />
 
 
         <TextView
@@ -265,8 +270,8 @@
             android:text="@string/AFR_label"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/label_Config"
-            app:layout_constraintTop_toBottomOf="@+id/label_Config" />
+            app:layout_constraintStart_toStartOf="@+id/label_Fault_Clear"
+            app:layout_constraintTop_toBottomOf="@+id/label_Fault_Clear" />
 
         <TextView
             android:id="@+id/label_AFR_result"
@@ -275,8 +280,8 @@
             android:layout_marginTop="8dp"
             android:text="@string/AFR_result"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/label_Config_result"
-            app:layout_constraintTop_toBottomOf="@+id/label_Config_result" />
+            app:layout_constraintEnd_toEndOf="@+id/label_Fault_Clear_result"
+            app:layout_constraintTop_toBottomOf="@+id/label_Fault_Clear_result" />
 
         <TextView
             android:id="@+id/label_Engine"
