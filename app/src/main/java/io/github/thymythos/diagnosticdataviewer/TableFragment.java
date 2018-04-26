@@ -11,6 +11,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
+import static android.view.Gravity.CENTER_VERTICAL;
 
 
 /**
@@ -18,10 +21,53 @@ import android.widget.TextView;
  * Use the {@link TableFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TableFragment extends Fragment {
+public class TableFragment extends Fragment implements LiveDataFragment {
+
+    private final DecimalFormat NUM_FORMAT = new DecimalFormat("#0.0");
+    private final int[] RPM_BINS = new int[]{0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
+    private final float[] TPS_BINS = new float[]{0, 1.8f, 2.3f, 2.5f, 3.3f, 4.2f, 5.6f, 7.1f, 9.1f, 12, 16, 21, 28, 37, 48, 61, 78, 100};
+
+    private int[] maxRPM = new int[RPM_BINS.length - 2];
+    private int[] minRPM = new int[RPM_BINS.length - 2];
+    private float[] maxTPS = new float[TPS_BINS.length - 2];
+    private float[] minTPS = new float[TPS_BINS.length - 2];
+    private TextView[][] textViews = new TextView[RPM_BINS.length - 1][TPS_BINS.length - 1];
+
+    private GradientDrawable gdGreen;
+    private GradientDrawable gdRed;
+    private float rpm = 0;
 
     public TableFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void setRPM(float rpm) {
+        this.rpm = rpm;
+    }
+
+    @Override
+    public void setTPS(float tps) {
+        int row = -1;
+        int col = -1;
+        for (int i = 0; i < maxRPM.length; i++) {
+            if (minRPM[i] < rpm && rpm < maxRPM[i]) row = i;
+            if (minTPS[i] < tps && tps < maxTPS[i]) col = i;
+        }
+        // TODO: Change color gradually when the cell is hit more than once
+        if (row != -1 && col != -1) textViews[row][col].setBackground(gdGreen);
+    }
+
+    @Override
+    public void setAFR1(float afr) {
+    }
+
+    @Override
+    public void setAFR2(float afr) {
+    }
+
+    @Override
+    public void setCoolantTemp(String temp) {
     }
 
     /**
@@ -41,41 +87,27 @@ public class TableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_table, container, false);
 
-        int[] rpm = {0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
-        double[] tps = {0, 1.8, 2.3, 2.5, 3.3, 4.2, 5.6, 7.1, 9.1, 12, 16, 21, 28, 37, 48, 61, 78, 100};
+        float TPSclosed = 2.1f;
 
-        double TPSclosed = 2.1;
+        for (int i = 1; i < RPM_BINS.length - 1; i++) {
+            float minDiff = TPS_BINS[i] - TPS_BINS[i - 1] * 0.35f;
+            minTPS[i - 1] = TPS_BINS[i] - minDiff;
+            float maxDiff = TPS_BINS[i + 1] - TPS_BINS[i] * 0.35f;
+            maxTPS[i - 1] = TPS_BINS[i] + maxDiff;
 
-        int colCell;
-        int rowCell;
-        int RPM;
-        double TPS;
-
-        double[] maxTPS = new double[16];
-        double[] minTPS = new double[16];
-        int[] maxRPM = new int[16];
-        int[] minRPM = new int[16];
-
-        for (int i = 1; i < 16; i++) {
-            double minDiff = tps[i] - tps[i - 1] * 0.35;
-            minTPS[i - 1] = tps[i] - minDiff;
-            double maxDiff = tps[i + 1] - tps[i] * 0.35;
-            maxTPS[i - 1] = tps[i] + maxDiff;
-
-            minDiff = (double) (rpm[i] - rpm[i - 1]) * 0.35;
-            minRPM[i - 1] = (int) (rpm[i] - minDiff);
-            maxDiff = (double) (rpm[i + 1] - rpm[i]) * 0.35;
-            maxRPM[i - 1] = (int) (rpm[i] + maxDiff);
+            minDiff = (float) (RPM_BINS[i] - RPM_BINS[i - 1]) * 0.35f;
+            minRPM[i - 1] = (int) (RPM_BINS[i] - minDiff);
+            maxDiff = (float) (RPM_BINS[i + 1] - RPM_BINS[i]) * 0.35f;
+            maxRPM[i - 1] = (int) (RPM_BINS[i] + maxDiff);
 
         }
-        minTPS[2] = TPSclosed * 0.9;
+        minTPS[2] = TPSclosed * 0.9f;
 
-
-        GradientDrawable gdGreen = new GradientDrawable();
+        gdGreen = new GradientDrawable();
         gdGreen.setColor(0xFF00FF00);
         gdGreen.setCornerRadius(5);
         gdGreen.setStroke(1, 0xFF000000);
-        GradientDrawable gdRed = new GradientDrawable();
+        gdRed = new GradientDrawable();
         gdRed.setColor(0xFFFF1010);
         gdRed.setCornerRadius(5);
         gdRed.setStroke(1, 0xFF000000);
@@ -84,47 +116,42 @@ public class TableFragment extends Fragment {
         TableRow.LayoutParams colLayout = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f / 17f);
         TableLayout table = view.findViewById(R.id.table);
 
-
         for (int row = 0; row < 17; row++) {
             TableRow tableRow = new TableRow(table.getContext());
             tableRow.setLayoutParams(rowLayout);
+            tableRow.setGravity(CENTER_VERTICAL);
 
             // RPM column
             TextView text = new TextView(tableRow.getContext());
             text.setTextSize(10);
-            text.setText(Double.toString(rpm[17 - row] / 1000));
+            text.setPadding(15, 0, 15, 0);
 
-            text.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-            text.setPadding(15, 5, 15, 5);
             if (row == 16) text.setText("");
+            else text.setText(NUM_FORMAT.format(RPM_BINS[17 - row] / 1000f));
+
             tableRow.addView(text);
 
             // Main table and row index
             for (int col = 0; col < 16; col++) {
-                text = new TextView(tableRow.getContext());
+                textViews[row][col] = new TextView(tableRow.getContext());
+                textViews[row][col].setLayoutParams(colLayout);
                 if (row < 16) {
-
-                    //text.setBackground((col / (row + 1) > 1) ? gdGreen : gdRed);
-                    text.setBackground(gdRed);
-
-                    text.setLayoutParams(colLayout);
+                    textViews[row][col].setBackground(gdRed);
                 } else {
-                    text.setText(Double.toString(tps[16 - col]));
-                    text.setGravity(Gravity.CENTER_HORIZONTAL);
+                    textViews[row][col].setText(NUM_FORMAT.format(TPS_BINS[16 - col]));
+                    textViews[row][col].setGravity(Gravity.CENTER_HORIZONTAL);
                     if (col % 2 != 0) text.setText("  ");
-                    text.setTextSize(10);
+                    textViews[row][col].setTextSize(10);
                 }
 
-                text.setPadding(0, 5, 25, 5);
-                tableRow.addView(text);
+                textViews[row][col].setPadding(0, 5, 25, 5);
+                tableRow.addView(textViews[row][col]);
             }
 
             table.addView(tableRow);
         }
 
         return view;
-
-
     }
 
 }
