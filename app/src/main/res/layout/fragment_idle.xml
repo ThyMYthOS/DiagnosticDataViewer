@@ -1,0 +1,100 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_column="0"
+        android:layout_row="1">
+
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge1"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            gauge:initialValue="0"
+            gauge:labelTextSize="48"
+            gauge:layout_constraintEnd_toEndOf="parent"
+            gauge:layout_constraintStart_toStartOf="parent"
+            gauge:layout_constraintTop_toTopOf="parent"
+            gauge:upperText="@string/Gauge_start"
+            gauge:maxValue="2000"
+            gauge:minValue="0"
+            gauge:upperTextSize="80"
+            gauge:lowerTextSize="100"
+            gauge:totalNicks="60"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="50" />
+
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge2"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            gauge:initialValue="1"
+            gauge:labelTextSize="48"
+            gauge:layout_constraintEnd_toEndOf="parent"
+            gauge:layout_constraintStart_toStartOf="parent"
+            gauge:layout_constraintTop_toBottomOf="@+id/gauge1"
+            gauge:upperText="@string/TPS_label"
+            gauge:maxValue="3"
+            gauge:minValue="1"
+            gauge:upperTextSize="80"
+            gauge:lowerTextSize="100"
+            gauge:totalNicks="30"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="0.1" />
+
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge3"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            android:layout_marginBottom="5dp"
+            gauge:initialValue="10"
+            gauge:labelTextSize="42"
+            gauge:layout_constraintBottom_toBottomOf="parent"
+            gauge:layout_constraintStart_toStartOf="parent"
+            gauge:upperText="@string/AFR1_gauge"
+            gauge:maxValue="15"
+            gauge:minValue="11"
+            gauge:upperTextSize="60"
+            gauge:lowerTextSize="80"
+            gauge:totalNicks="60"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="0.1" />
+
+        <de.nitri.gauge.Gauge
+            android:id="@+id/gauge4"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            gauge:faceColor='@color/colorDialFace'
+            gauge:scaleColor='@color/colorScale'
+            android:layout_marginBottom="5dp"
+            gauge:initialValue="10"
+            gauge:labelTextSize="42"
+            gauge:layout_constraintBottom_toBottomOf="parent"
+            gauge:layout_constraintEnd_toEndOf="parent"
+            gauge:upperText="@string/AFR2_gauge"
+            gauge:maxValue="15"
+            gauge:minValue="11"
+            gauge:upperTextSize="60"
+            gauge:lowerTextSize="80"
+            gauge:totalNicks="60"
+            gauge:lowerText="@string/Gauge_start"
+            gauge:valuePerNick="0.1" />
+
+</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

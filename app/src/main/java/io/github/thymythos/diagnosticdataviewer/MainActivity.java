@@ -218,9 +218,9 @@ public class MainActivity extends AppCompatActivity
                         if (AFR1d < 13) {
                             AFR1_data.setTextColor(Color.parseColor("#ff0000")); //red
                         } else if (AFR1d > 13.6) {
-                            AFR1_data.setTextColor(Color.parseColor("#00cc00")); //green
-                        } else {
                             AFR1_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                        } else {
+                            AFR1_data.setTextColor(Color.parseColor("#00cc00")); //green
                         }
                     }
                     break;
@@ -241,9 +241,9 @@ public class MainActivity extends AppCompatActivity
                         if (AFR2d < 13) {
                             AFR2_data.setTextColor(Color.parseColor("#ff0000")); //red
                         } else if (AFR2d > 13.6) {
-                            AFR2_data.setTextColor(Color.parseColor("#00cc00")); //green
-                        } else {
                             AFR2_data.setTextColor(Color.parseColor("#0000ff")); //blue
+                        } else {
+                            AFR2_data.setTextColor(Color.parseColor("#00cc00")); //green
                         }
                     }
                     break;
