@@ -198,17 +198,17 @@ public class MainActivity extends AppCompatActivity
                 case 5:
                     TextView N_data = findViewById(R.id.label_N_Data);
                     if (Integer.valueOf(separated[1]) == 1) {
-                        N_data.setTextColor(res.getColor(R.color.good));
+                        N_data.setTextColor(res.getColor(R.color.on));
                     } else {
-                        N_data.setTextColor(res.getColor(R.color.bad));
+                        N_data.setTextColor(res.getColor(R.color.off));
                     }
                     break;
                 case 6:
                     TextView EBS_data = findViewById(R.id.label_EBS_data);
                     if (Integer.valueOf(separated[1]) == 1) {
-                        EBS_data.setTextColor(res.getColor(R.color.good));
+                        EBS_data.setTextColor(res.getColor(R.color.on));
                     } else {
-                        EBS_data.setTextColor(res.getColor(R.color.bad));
+                        EBS_data.setTextColor(res.getColor(R.color.off));
                     }
                     break;
                 case 7:
@@ -475,7 +475,7 @@ public class MainActivity extends AppCompatActivity
         if (mBluetoothLeService != null) {
             SharedPreferences settings = getSharedPreferences(SETTINGS_BLUETOOTH, MODE_PRIVATE);
             String deviceAddress = settings.getString(SETTING_DEVICE_ADDRESS, "");
-            if (deviceAddress.equals("")) {
+            if (!deviceAddress.equals("")) {
                 final boolean result = mBluetoothLeService.connect(deviceAddress);
                 Log.d(TAG, "Connect request result=" + result);
             }

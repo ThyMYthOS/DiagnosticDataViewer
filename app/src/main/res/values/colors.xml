@@ -10,6 +10,6 @@
     <color name="colorAFRrich">#FF0000</color>
     <color name="colorAFRlean">#0000FF</color>
 
-    <color name="good">#009900</color>
-    <color name="bad">#FF0000</color>
+    <color name="on">#009900</color>
+    <color name="off">#FF0000</color>
 </resources>

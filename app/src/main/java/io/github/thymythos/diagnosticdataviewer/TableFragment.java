@@ -25,7 +25,7 @@ public class TableFragment extends Fragment implements LiveDataFragment {
 
     private final DecimalFormat NUM_FORMAT = new DecimalFormat("#0.0");
     private final int[] RPM_BINS = new int[]{0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
-    private final float[] TPS_BINS = new float[]{0, 1.8f, 2.3f, 2.5f, 3.3f, 4.2f, 5.6f, 7.1f, 9.1f, 12, 16, 21, 28, 37, 48, 61, 78, 100};
+    private final float[] TPS_BINS = new float[]{0, 1.8f, 2.3f, 2.5f, 3.3f, 4.2f, 5.6f, 7.1f, 9.1f, 12, 16, 21, 28, 37, 48, 61, 78, 141};
 
     private int[] maxRPM = new int[RPM_BINS.length - 2];
     private int[] minRPM = new int[RPM_BINS.length - 2];
@@ -51,8 +51,8 @@ public class TableFragment extends Fragment implements LiveDataFragment {
         int row = -1;
         int col = -1;
         for (int i = 0; i < maxRPM.length; i++) {
-            if (minRPM[i] < rpm && rpm < maxRPM[i]) row = i;
-            if (minTPS[i] < tps && tps < maxTPS[i]) col = i;
+            if (minRPM[i] <= rpm && rpm <= maxRPM[i]) row = 16-i;
+            if (minTPS[i] <= tps && tps <= maxTPS[i]) col = 15-i;
         }
         // TODO: Change color gradually when the cell is hit more than once
         if (row != -1 && col != -1) textViews[row][col].setBackground(gdGreen);
@@ -90,10 +90,10 @@ public class TableFragment extends Fragment implements LiveDataFragment {
         float TPSclosed = 2.1f;
 
         for (int i = 1; i < RPM_BINS.length - 1; i++) {
-            float minDiff = TPS_BINS[i] - TPS_BINS[i - 1] * 0.35f;
-            minTPS[i - 1] = TPS_BINS[i] - minDiff;
-            float maxDiff = TPS_BINS[i + 1] - TPS_BINS[i] * 0.35f;
-            maxTPS[i - 1] = TPS_BINS[i] + maxDiff;
+            float minDiff = (TPS_BINS[i] - TPS_BINS[i - 1]) * 0.35f;
+            minTPS[i-1] = TPS_BINS[i] - minDiff;
+            float maxDiff = (TPS_BINS[i + 1] - TPS_BINS[i]) * 0.35f;
+            maxTPS[i-1] = TPS_BINS[i] + maxDiff;
 
             minDiff = (float) (RPM_BINS[i] - RPM_BINS[i - 1]) * 0.35f;
             minRPM[i - 1] = (int) (RPM_BINS[i] - minDiff);
@@ -101,7 +101,7 @@ public class TableFragment extends Fragment implements LiveDataFragment {
             maxRPM[i - 1] = (int) (RPM_BINS[i] + maxDiff);
 
         }
-        minTPS[2] = TPSclosed * 0.9f;
+        minTPS[1] = TPSclosed * 0.9f;
 
         gdGreen = new GradientDrawable();
         gdGreen.setColor(0xFF00FF00);
