@@ -28,8 +28,6 @@ import android.widget.TextView;
 
 import java.util.UUID;
 
-import de.nitri.gauge.Gauge;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,8 +42,6 @@ public class MainActivity extends AppCompatActivity
     public static int motorcycleModel;
     public static boolean resetTime;
     public static boolean centigrade = true;
-    public static boolean idleView;
-    public static boolean afrView;
 
 
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -147,79 +143,63 @@ public class MainActivity extends AppCompatActivity
             Resources res = getResources();
             String[] separated = data.split(",");
             Integer dataType = Integer.valueOf(separated[0]);
+            Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
 
             // TODO: Use different characteristics instead of multiplexing the data into one
             switch (dataType) {
                 case 1:
-                    if (idleView) { // start log timer on 1st loop
-                        Gauge gauge1 = findViewById(R.id.gauge1);
-                        gauge1.setDeltaTimeInterval(1);
-                        gauge1.setLowerText(separated[1]);
-                        float value = Float.valueOf(separated[1]);
-                        if (value > 2000) value = 2000;
-                        gauge1.moveToValue(value);
-                    } else {
-                        TextView RPM_data = (TextView) (findViewById(R.id.label_RPM_data));
-                        RPM_data.setText(separated[1]);
+                    TextView RPM_data = findViewById(R.id.label_RPM_data);
+                    if (RPM_data != null) RPM_data.setText(separated[1]);
+
+                    if (fragment instanceof LiveDataFragment) {
+                        LiveDataFragment dataFragment = (LiveDataFragment) fragment;
+                        dataFragment.setRPM(Float.valueOf(separated[1]));
                     }
                     displayLogTime();
                     break;
                 case 2:
-                    if (idleView) {
-                        Gauge gauge2 = findViewById(R.id.gauge2);
-                        gauge2.setDeltaTimeInterval(1);
-                        gauge2.setLowerText(separated[1]);
-                        float value = Float.valueOf(separated[1]);
-                        if (value < 1) value = 1;
-                        if (value > 3) value = 3;
-                        gauge2.moveToValue(value);
-                    } else {
-                        TextView TPS_data = (TextView) (findViewById(R.id.label_TPS_data));
-                        TPS_data.setText(separated[1]);
+                    TextView TPS_data = findViewById(R.id.label_TPS_data);
+                    if (TPS_data != null) TPS_data.setText(separated[1]);
+
+                    if (fragment instanceof LiveDataFragment) {
+                        LiveDataFragment dataFragment = (LiveDataFragment) fragment;
+                        dataFragment.setTPS(Float.valueOf(separated[1]));
                     }
                     break;
                 case 3:
                     float afr1Value = Float.valueOf(separated[1]);
-                    if ((idleView || afrView) && afr1Value > 0) {
-                        Gauge gauge3 = findViewById(R.id.gauge3);
-                        gauge3.setDeltaTimeInterval(1);
-                        gauge3.setLowerText(separated[1]);
-                        if (afr1Value < 11) afr1Value = 11;
-                        if (afr1Value > 15) afr1Value = 15;
-                        gauge3.moveToValue(afr1Value);
-                    } else {
-                        TextView AFR1_data = (TextView) (findViewById(R.id.label_AFR1_data));
+                    TextView AFR1_data = findViewById(R.id.label_AFR1_data);
+                    if (AFR1_data != null) {
                         AFR1_data.setText(separated[1]);
-                        Double AFR1d = Double.parseDouble(separated[1]);
-                        if (AFR1d < AFR_LOWER_LIMIT) {
+                        if (afr1Value < AFR_LOWER_LIMIT) {
                             AFR1_data.setTextColor(res.getColor(R.color.colorAFRrich));
-                        } else if (AFR1d > AFR_UPPER_LIMIT) {
+                        } else if (afr1Value > AFR_UPPER_LIMIT) {
                             AFR1_data.setTextColor(res.getColor(R.color.colorAFRlean));
                         } else {
                             AFR1_data.setTextColor(res.getColor(R.color.colorAFRok));
                         }
                     }
+                    if (fragment instanceof LiveDataFragment) {
+                        LiveDataFragment dataFragment = (LiveDataFragment) fragment;
+                        dataFragment.setAFR1(afr1Value);
+                    }
                     break;
                 case 4:
                     float afr2Value = Float.valueOf(separated[1]);
-                    if ((idleView || afrView) && afr2Value > 0) {
-                        Gauge gauge4 = findViewById(R.id.gauge4);
-                        gauge4.setDeltaTimeInterval(1);
-                        gauge4.setLowerText(separated[1]);
-                        if (afr2Value < 11) afr2Value = 11;
-                        if (afr2Value > 15) afr2Value = 15;
-                        gauge4.moveToValue(afr2Value);
-                    } else {
-                        TextView AFR2_data = (TextView) (findViewById(R.id.label_AFR2_data));
+                    TextView AFR2_data = findViewById(R.id.label_AFR2_data);
+                    if (AFR2_data != null) {
                         AFR2_data.setText(separated[1]);
-                        Double AFR2d = Double.parseDouble(separated[1]);
-                        if (AFR2d < AFR_LOWER_LIMIT) {
+                        if (afr2Value < AFR_LOWER_LIMIT) {
                             AFR2_data.setTextColor(res.getColor(R.color.colorAFRrich));
-                        } else if (AFR2d > AFR_UPPER_LIMIT) {
+                        } else if (afr2Value > AFR_UPPER_LIMIT) {
                             AFR2_data.setTextColor(res.getColor(R.color.colorAFRlean));
                         } else {
                             AFR2_data.setTextColor(res.getColor(R.color.colorAFRok));
                         }
+                    }
+                    if (fragment instanceof LiveDataFragment) {
+                        LiveDataFragment dataFragment = (LiveDataFragment) fragment;
+                        dataFragment.setAFR1(afr2Value);
                     }
                     break;
                 case 5:
@@ -239,12 +219,12 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 7:
-                    if (idleView) { // Display coolant temp in RPM dial
-                        Gauge gauge1 = findViewById(R.id.gauge1);
+                    if (fragment instanceof LiveDataFragment) {
+                        LiveDataFragment dataFragment = (LiveDataFragment) fragment;
                         if (centigrade == true) {
-                            gauge1.setUpperText(separated[1] + "°C");
+                            dataFragment.setCoolantTemp(separated[1] + "°C");
                         } else {
-                            gauge1.setUpperText(separated[1] + "°F");
+                            dataFragment.setCoolantTemp(separated[1] + "°F");
                         }
                     } else {
                         TextView CTS_data = (TextView) (findViewById(R.id.label_CTS_data));
@@ -682,8 +662,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        idleView = false;
-        afrView = false;
         Fragment fragment = null;
         if (id == R.id.nav_startup_view) {
             fragment = StartupFragment.newInstance();
@@ -691,11 +669,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_idle_view) {
             fragment = IdleFragment.newInstance();
             getSupportActionBar().setTitle(R.string.idle_title);
-            idleView = true;
         } else if (id == R.id.nav_afr_view) {
             fragment = AFRFragment.newInstance();
             getSupportActionBar().setTitle(R.string.afr_title);
-            afrView = true;
         } else if (id == R.id.nav_monitor_view) {
             fragment = MonitorFragment.newInstance();
             getSupportActionBar().setTitle(R.string.monitor_title);

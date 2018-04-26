@@ -13,7 +13,7 @@
         android:layout_row="1">
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge1"
+            android:id="@+id/gaugeRPM"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -34,7 +34,7 @@
             gauge:valuePerNick="50" />
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge2"
+            android:id="@+id/gaugeTPS"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -44,18 +44,18 @@
             gauge:labelTextSize="48"
             gauge:layout_constraintEnd_toEndOf="parent"
             gauge:layout_constraintStart_toStartOf="parent"
-            gauge:layout_constraintTop_toBottomOf="@+id/gauge1"
-            gauge:upperText="@string/TPS_label"
+            gauge:layout_constraintTop_toBottomOf="@+id/gaugeRPM"
             gauge:maxValue="3"
             gauge:minValue="1"
             gauge:upperTextSize="80"
             gauge:lowerTextSize="100"
             gauge:totalNicks="30"
             gauge:lowerText="@string/Gauge_start"
+            gauge:upperText="@string/TPS_label"
             gauge:valuePerNick="0.1" />
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge3"
+            android:id="@+id/gaugeAFR1"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -76,7 +76,7 @@
             gauge:valuePerNick="0.1" />
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge4"
+            android:id="@+id/gaugeAFR2"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

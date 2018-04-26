@@ -71,7 +71,7 @@
 
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge3"
+            android:id="@+id/gaugeAFR1"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -92,7 +92,7 @@
             gauge:valuePerNick="0.1" />
 
         <de.nitri.gauge.Gauge
-            android:id="@+id/gauge4"
+            android:id="@+id/gaugeAFR2"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
