@@ -15,9 +15,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +27,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.UUID;
 
 
@@ -56,12 +60,13 @@ public class MainActivity extends AppCompatActivity
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
-                finish();
+                Toast.makeText(MainActivity.this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT);
+                return;
             }
             // Automatically connects to the device upon successful start-up initialization.
             SharedPreferences settings = getSharedPreferences(SETTINGS_BLUETOOTH, MODE_PRIVATE);
             String deviceAddress = settings.getString(SETTING_DEVICE_ADDRESS, "");
-            if (deviceAddress != "") {
+            if (deviceAddress.equals("")) {
                 final boolean result = mBluetoothLeService.connect(deviceAddress);
                 Log.d(TAG, "Connect request result=" + result);
             }
@@ -86,11 +91,9 @@ public class MainActivity extends AppCompatActivity
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-                updateConnectionState(R.string.connected);
                 invalidateOptionsMenu();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-                updateConnectionState(R.string.disconnected);
                 invalidateOptionsMenu();
                 // TODO: clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
@@ -112,16 +115,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
-        private void updateConnectionState(final int resourceId) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // TODO Set device name in title or drawer
-                }
-            });
-        }
-
         public void displayLogTime() {
             if (!resetTime) { // reset log timer
                 resetTime = true;
@@ -129,12 +122,12 @@ public class MainActivity extends AppCompatActivity
             }
             int logDuration = (int) (System.currentTimeMillis() - logStart) / 1000;
             if (logDuration - logLastTime > 0) {
-                TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+                TextView Message_data = findViewById(R.id.label_Message_data);
 
-                String logTimeFormat = String.format(" %02d:%02d:%02d",
+                String logTimeFormat = String.format(Locale.US, " %02d:%02d:%02d",
                         (logDuration % 86400) / 3600, (logDuration % 3600) / 60, (logDuration % 60));
 
-                Message_data.setText(getString(R.string.LogTime_label) + logTimeFormat);
+                Message_data.setText(getString(R.string.LogTime_label, logTimeFormat));
                 logLastTime = logDuration;
             }
         }
@@ -203,7 +196,7 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 5:
-                    TextView N_data = (TextView) (findViewById(R.id.label_N_Data));
+                    TextView N_data = findViewById(R.id.label_N_Data);
                     if (Integer.valueOf(separated[1]) == 1) {
                         N_data.setTextColor(res.getColor(R.color.good));
                     } else {
@@ -211,7 +204,7 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 6:
-                    TextView EBS_data = (TextView) (findViewById(R.id.label_EBS_data));
+                    TextView EBS_data = findViewById(R.id.label_EBS_data);
                     if (Integer.valueOf(separated[1]) == 1) {
                         EBS_data.setTextColor(res.getColor(R.color.good));
                     } else {
@@ -221,46 +214,46 @@ public class MainActivity extends AppCompatActivity
                 case 7:
                     if (fragment instanceof LiveDataFragment) {
                         LiveDataFragment dataFragment = (LiveDataFragment) fragment;
-                        if (centigrade == true) {
+                        if (centigrade) {
                             dataFragment.setCoolantTemp(separated[1] + "°C");
                         } else {
                             dataFragment.setCoolantTemp(separated[1] + "°F");
                         }
                     } else {
-                        TextView CTS_data = (TextView) (findViewById(R.id.label_CTS_data));
+                        TextView CTS_data = findViewById(R.id.label_CTS_data);
                         CTS_data.setText(separated[1]);
                     }
                     break;
                 case 8:
-                    TextView IAT_data = (TextView) (findViewById(R.id.label_IAT_data));
+                    TextView IAT_data = findViewById(R.id.label_IAT_data);
                     IAT_data.setText(separated[1]);
                     break;
                 case 9:
-                    TextView ADV_data = (TextView) (findViewById(R.id.label_ADV_data));
+                    TextView ADV_data = findViewById(R.id.label_ADV_data);
                     ADV_data.setText(separated[1]);
                     break;
                 case 11:
-                    TextView INJ1_data = (TextView) (findViewById(R.id.label_INJ1_data));
+                    TextView INJ1_data = findViewById(R.id.label_INJ1_data);
                     INJ1_data.setText(separated[1]);
                     break;
                 case 13:
-                    TextView INJ2_data = (TextView) (findViewById(R.id.label_INJ2_data));
+                    TextView INJ2_data = findViewById(R.id.label_INJ2_data);
                     INJ2_data.setText(separated[1]);
                     break;
                 case 14:
-                    TextView AP_data = (TextView) (findViewById(R.id.label_AP_data));
+                    TextView AP_data = findViewById(R.id.label_AP_data);
                     AP_data.setText(separated[1]);
                     break;
                 case 15:
-                    TextView BV_data = (TextView) (findViewById(R.id.label_BV_data));
+                    TextView BV_data = findViewById(R.id.label_BV_data);
                     BV_data.setText(separated[1]);
                     break;
                 case 16://
-                    TextView AN3_data = (TextView) (findViewById(R.id.label_AN3_data));
+                    TextView AN3_data = findViewById(R.id.label_AN3_data);
                     AN3_data.setText(separated[1]);
                     break;
                 case 17:
-                    TextView AN4_data = (TextView) (findViewById(R.id.label_AN4_data));
+                    TextView AN4_data = findViewById(R.id.label_AN4_data);
                     AN4_data.setText(separated[1]);
                     break;
                 case 96:
@@ -277,7 +270,7 @@ public class MainActivity extends AppCompatActivity
 
 
         private void displayMessage(String message) {
-            TextView Message_data = (TextView) (findViewById(R.id.label_Message_data));
+            TextView Message_data = findViewById(R.id.label_Message_data);
             Integer messageType = Integer.valueOf(message);
 
             switch (messageType) {
@@ -285,25 +278,25 @@ public class MainActivity extends AppCompatActivity
                     Message_data.setText(getString(R.string.IGN_ON_message));
                     break;
                 case 2:
-                    TextView ignOn = (TextView) (findViewById(R.id.label_Ignition_result));
+                    TextView ignOn = findViewById(R.id.label_Ignition_result);
                     ignOn.setText(getString(R.string.ON_message));
 
-                    TextView SDfail = (TextView) (findViewById(R.id.label_SDcard_result));
+                    TextView SDfail = findViewById(R.id.label_SDcard_result);
                     SDfail.setText(getString(R.string.Failed_message));
                     Message_data.setText(getString(R.string.Clear_message)); // Clear message line
                     break;
                 case 3:
-                    TextView Faults = (TextView) (findViewById(R.id.label_Fault_Codes_result));
+                    TextView Faults = findViewById(R.id.label_Fault_Codes_result);
                     Faults.setText(getString(R.string.Yes_message));
-                    TextView FaultsC = (TextView) (findViewById(R.id.label_Fault_Clear_result));
+                    TextView FaultsC = findViewById(R.id.label_Fault_Clear_result);
                     FaultsC.setText(getString(R.string.No_message));
                     break;
                 case 4:
-                    TextView FaultsC2 = (TextView) (findViewById(R.id.label_Fault_Clear_result));
+                    TextView FaultsC2 = findViewById(R.id.label_Fault_Clear_result);
                     FaultsC2.setText(getString(R.string.Yes_message));
                     break;
                 case 5:
-                    TextView Config = (TextView) (findViewById(R.id.label_Config_result));
+                    TextView Config = findViewById(R.id.label_Config_result);
                     Config.setText(getString(R.string.Failed_message));
                     break;
                 case 6:
@@ -311,32 +304,32 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 7:
                     Message_data.setText(getString(R.string.AFR_Cold_message));
-                    TextView AfrCold = (TextView) (findViewById(R.id.label_AFR_result));
+                    TextView AfrCold = findViewById(R.id.label_AFR_result);
                     AfrCold.setText(getString(R.string.Cold_message));
                     break;
                 case 8:
                     Message_data.setText(getString(R.string.AFR_NA_message));
-                    TextView AfrNA = (TextView) (findViewById(R.id.label_AFR_result));
+                    TextView AfrNA = findViewById(R.id.label_AFR_result);
                     AfrNA.setText(getString(R.string.NA_message));
                     break;
                 case 9:
                     Message_data.setText(getString(R.string.AFR_Err_message));
-                    TextView AfrErr = (TextView) (findViewById(R.id.label_AFR_result));
+                    TextView AfrErr = findViewById(R.id.label_AFR_result);
                     AfrErr.setText(getString(R.string.Error_message));
                     break;
                 case 10:
                     Message_data.setText(getString(R.string.AFR_Ready_message));
-                    TextView AfrOK = (TextView) (findViewById(R.id.label_AFR_result));
+                    TextView AfrOK = findViewById(R.id.label_AFR_result);
                     AfrOK.setText(getString(R.string.OK_message));
                     break;
                 case 11:
                     Message_data.setText(getString(R.string.Eng_Cold_message));
-                    TextView EngineCold = (TextView) (findViewById(R.id.label_Engine_result));
+                    TextView EngineCold = findViewById(R.id.label_Engine_result);
                     EngineCold.setText(getString(R.string.Cold_message));
                     break;
                 case 12:
                     Message_data.setText(getString(R.string.Eng_Warm_message));
-                    TextView EngineOK = (TextView) (findViewById(R.id.label_Engine_result));
+                    TextView EngineOK = findViewById(R.id.label_Engine_result);
                     EngineOK.setText(getString(R.string.OK_message));
                     break;
                 case 13:
@@ -349,24 +342,10 @@ public class MainActivity extends AppCompatActivity
                     Message_data.setText(getString(R.string.TimeOut_message));
                     break;
                 case 16: // back to info screen
-                    Fragment fragment = null;
-                    fragment = StartupFragment.newInstance();
-                    getSupportActionBar().setTitle(R.string.info_title);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.content_frame, fragment)
-                            .commit();
-                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                    navigationView.getMenu().getItem(0).setChecked(true);
+                    navigateToFragment(R.id.nav_startup_view);
                     break;
                 case 17: // fast logging
-                    Fragment fragment1 = null;
-                    fragment1 = FastLoggingFragment.newInstance();
-                    getSupportActionBar().setTitle(R.string.fast_title);
-                    FragmentManager fragmentManager1 = getFragmentManager();
-                    fragmentManager1.beginTransaction()
-                            .replace(R.id.content_frame, fragment1)
-                            .commit();
+                    navigateToFragment(R.id.fastLogging);
                     break;
             }
         }
@@ -378,26 +357,26 @@ public class MainActivity extends AppCompatActivity
                 case 1:
                     resetTime = false;
                     logLastTime = 0;
-                    TextView ignOn = (TextView) (findViewById(R.id.label_Ignition_result));
+                    TextView ignOn = findViewById(R.id.label_Ignition_result);
                     ignOn.setText(getString(R.string.ON_message));
 
-                    TextView SDpass = (TextView) (findViewById(R.id.label_SDcard_result));
+                    TextView SDpass = findViewById(R.id.label_SDcard_result);
                     SDpass.setText(getString(R.string.OK_message));
 
-                    TextView logNameView = (TextView) (findViewById(R.id.label_Log_result));
+                    TextView logNameView = findViewById(R.id.label_Log_result);
                     String[] logName = result.split(".csv");
                     logNameView.setText(logName[0]);
                     break;
                 case 2:
-                    TextView firm = (TextView) (findViewById(R.id.label_Firmware_result));
+                    TextView firm = findViewById(R.id.label_Firmware_result);
                     String firmware = result.replaceAll("\\s", ""); //remove spaces
                     firm.setText(firmware);
                     break;
                 case 3:
-                    TextView ConfigOK = (TextView) (findViewById(R.id.label_Config_result));
+                    TextView ConfigOK = findViewById(R.id.label_Config_result);
                     ConfigOK.setText(getString(R.string.OK_message));
 
-                    TextView autoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
+                    TextView autoSwitch = findViewById(R.id.label_AutoSwitch_result);
                     Integer autoSwitchType = Integer.valueOf(result);
                     if (autoSwitchType == 0) {
                         autoSwitch.setText(getString(R.string.AutoSwitch0_message));
@@ -408,25 +387,16 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 4:
-                    TextView mode = (TextView) (findViewById(R.id.label_Mode_result));
+                    TextView mode = findViewById(R.id.label_Mode_result);
                     Integer modeType = Integer.valueOf(result);
 
                     if (modeType == 4) {
-                        // Insert the fragment by replacing any existing fragment
-                        Fragment fragment = null;
-                        fragment = ActuatorTestFragment.newInstance();
-                        getSupportActionBar().setTitle(R.string.actuator_title);
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.content_frame, fragment)
-                                .commit();
-                        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                        navigationView.getMenu().getItem(5).setChecked(true);
+                        navigateToFragment(R.id.nav_actuator_view);
                     }
 
                     if (modeType == 1) {
                         mode.setText(getString(R.string.Mode1_message));
-                        TextView newAutoSwitch = (TextView) (findViewById(R.id.label_AutoSwitch_result));
+                        TextView newAutoSwitch = findViewById(R.id.label_AutoSwitch_result);
                         newAutoSwitch.setText(getString(R.string.AutoSwitch3_message));
                     } else if (modeType == 2) {
                         mode.setText(getString(R.string.Mode2_message));
@@ -435,47 +405,10 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
                 case 5:
-                    TextView motorcycle = (TextView) (findViewById(R.id.label_Motorcycle_result));
+                    TextView motorcycle = findViewById(R.id.label_Motorcycle_result);
                     char m = result.charAt(0);
-                    motorcycleModel = ((int) m) - 65;  // 0 to 12
-                    switch (result) {
-                        case "A":
-                            motorcycle.setText(getString(R.string.Motorcycle_A));
-                            break;
-                        case "B":
-                            motorcycle.setText(getString(R.string.Motorcycle_B));
-                            break;
-                        case "C":
-                            motorcycle.setText(getString(R.string.Motorcycle_C));
-                            break;
-                        case "D":
-                            motorcycle.setText(getString(R.string.Motorcycle_D));
-                            break;
-                        case "E":
-                            motorcycle.setText(getString(R.string.Motorcycle_E));
-                            break;
-                        case "F":
-                            motorcycle.setText(getString(R.string.Motorcycle_F));
-                            break;
-                        case "G":
-                            motorcycle.setText(getString(R.string.Motorcycle_G));
-                            break;
-                        case "H":
-                            motorcycle.setText(getString(R.string.Motorcycle_H));
-                            break;
-                        case "I":
-                            motorcycle.setText(getString(R.string.Motorcycle_I));
-                            break;
-                        case "J":
-                            motorcycle.setText(getString(R.string.Motorcycle_J));
-                            break;
-                        case "K":
-                            motorcycle.setText(getString(R.string.Motorcycle_K));
-                            break;
-                        case "L":
-                            motorcycle.setText(getString(R.string.Motorcycle_L));
-                            break;
-                    }
+                    motorcycleModel = ((int) m) - 65;  // 'A':0 to 'L':12
+                    motorcycle.setText(getResources().getStringArray(R.array.Motorcycles)[motorcycleModel]);
                     break;
                 case 6:
                     centigrade = false;
@@ -486,63 +419,23 @@ public class MainActivity extends AppCompatActivity
         private void actuatorTest(String test, String result) {
             Integer testData = Integer.valueOf(test);
             Integer resultVal = Integer.valueOf(result);
-
+            TextView textView = null;
             switch (testData) {
-                case 0:
-                    TextView inj1Res = (TextView) (findViewById(R.id.label_Injector1_result));
-                    if (resultVal == 0) {
-                        inj1Res.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        inj1Res.setText(getString(R.string.Passed_message));
-                    } else
-                        inj1Res.setText(getString(R.string.Failed_message));
-                    break;
-                case 1:
-                    TextView inj2Res = (TextView) (findViewById(R.id.label_Injector2_result));
-                    if (resultVal == 0) {
-                        inj2Res.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        inj2Res.setText(getString(R.string.Passed_message));
-                    } else
-                        inj2Res.setText(getString(R.string.Failed_message));
-                    break;
-                case 2:
-                    TextView coil1Res = (TextView) (findViewById(R.id.label_Coil1_result));
-                    if (resultVal == 0) {
-                        coil1Res.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        coil1Res.setText(getString(R.string.Passed_message));
-                    } else
-                        coil1Res.setText(getString(R.string.Failed_message));
-                    break;
-                case 3:
-                    TextView coil2Res = (TextView) (findViewById(R.id.label_Coil2_result));
-                    if (resultVal == 0) {
-                        coil2Res.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        coil2Res.setText(getString(R.string.Passed_message));
-                    } else
-                        coil2Res.setText(getString(R.string.Failed_message));
-                    break;
-                case 4:
-                    TextView fuelRes = (TextView) (findViewById(R.id.label_FuelPump_result));
-                    if (resultVal == 0) {
-                        fuelRes.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        fuelRes.setText(getString(R.string.Passed_message));
-                    } else
-                        fuelRes.setText(getString(R.string.Failed_message));
-                    break;
-                case 5:
-                    TextView tachRes = (TextView) (findViewById(R.id.label_Tachometer_Result));
-                    if (resultVal == 0) {
-                        tachRes.setText(getString(R.string.Testing_message));
-                    } else if (resultVal == 1) {
-                        tachRes.setText(getString(R.string.Passed_message));
-                    } else
-                        tachRes.setText(getString(R.string.Failed_message));
-                    break;
+                case 0: textView = findViewById(R.id.label_Injector1_result); break;
+                case 1: textView = findViewById(R.id.label_Injector2_result); break;
+                case 2: textView = findViewById(R.id.label_Coil1_result); break;
+                case 3: textView = findViewById(R.id.label_Coil2_result); break;
+                case 4: textView = findViewById(R.id.label_FuelPump_result); break;
+                case 5: textView = findViewById(R.id.label_Tachometer_Result); break;
             }
+            if (textView == null) return;
+            if (resultVal == 0) {
+                textView.setText(getString(R.string.Testing_message));
+            } else if (resultVal == 1) {
+                textView.setText(getString(R.string.Passed_message));
+            } else
+                textView.setText(getString(R.string.Failed_message));
+
         }
     };
 
@@ -550,23 +443,19 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.info_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.info_title);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.content_frame, new StartupFragment())
-                .commit();
-        navigationView.getMenu().getItem(0).setChecked(true);
+        navigateToFragment(R.id.nav_startup_view);
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
@@ -586,7 +475,7 @@ public class MainActivity extends AppCompatActivity
         if (mBluetoothLeService != null) {
             SharedPreferences settings = getSharedPreferences(SETTINGS_BLUETOOTH, MODE_PRIVATE);
             String deviceAddress = settings.getString(SETTING_DEVICE_ADDRESS, "");
-            if (deviceAddress != "") {
+            if (deviceAddress.equals("")) {
                 final boolean result = mBluetoothLeService.connect(deviceAddress);
                 Log.d(TAG, "Connect request result=" + result);
             }
@@ -608,14 +497,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -626,14 +514,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             menu.findItem(R.id.menu_connect).setVisible(true);
             menu.findItem(R.id.menu_disconnect).setVisible(false);
-
-            Fragment fragment = null;
-            fragment = StartupFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.info_title);
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-                    .commit();
+            navigateToFragment(R.id.nav_startup_view);
         }
         return true;
     }
@@ -648,8 +529,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.menu_disconnect:
                 SharedPreferences settings = getSharedPreferences(SETTINGS_BLUETOOTH, MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.remove(SETTING_DEVICE_ADDRESS);
-                editor.commit();
+                editor.remove(SETTING_DEVICE_ADDRESS).apply();
                 mBluetoothLeService.disconnect();
                 break;
             case R.id.menu_settings:
@@ -659,33 +539,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        navigateToFragment(item.getItemId());
+        return true;
+    }
+
+    private void navigateToFragment(int menuId) {
+        int title = 0;
         Fragment fragment = null;
-        if (id == R.id.nav_startup_view) {
+        if (menuId == R.id.nav_startup_view) {
             fragment = StartupFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.info_title);
-        } else if (id == R.id.nav_idle_view) {
+            title = R.string.info_title;
+        } else if (menuId == R.id.nav_idle_view) {
             fragment = IdleFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.idle_title);
-        } else if (id == R.id.nav_afr_view) {
+            title = R.string.idle_title;
+        } else if (menuId == R.id.nav_afr_view) {
             fragment = AFRFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.afr_title);
-        } else if (id == R.id.nav_monitor_view) {
+            title = R.string.afr_title;
+        } else if (menuId == R.id.nav_monitor_view) {
             fragment = MonitorFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.monitor_title);
-        } else if (id == R.id.nav_graph_view) {
+            title = R.string.monitor_title;
+        } else if (menuId == R.id.nav_graph_view) {
             fragment = new GraphFragment();
-            getSupportActionBar().setTitle(R.string.graph_title);
-        } else if (id == R.id.nav_table_view) {
+            title = R.string.graph_title;
+        } else if (menuId == R.id.nav_table_view) {
             fragment = TableFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.table_title);
-        } else if (id == R.id.nav_actuator_view) {
+            title = R.string.table_title;
+        } else if (menuId == R.id.nav_actuator_view) {
             fragment = ActuatorTestFragment.newInstance();
-            getSupportActionBar().setTitle(R.string.actuator_title);
+            title = R.string.actuator_title;
+        } else if (menuId == R.id.fastLogging) {
+            fragment = FastLoggingFragment.newInstance();
+            title = R.string.fast_title;
         }
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        MenuItem menuItem = navigationView.getMenu().findItem(menuId);
+        if (menuItem != null) menuItem.setChecked(true);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setTitle(title);
         if (fragment != null) {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getFragmentManager();
@@ -694,9 +588,8 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
 }

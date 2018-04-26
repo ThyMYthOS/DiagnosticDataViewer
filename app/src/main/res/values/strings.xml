@@ -74,7 +74,7 @@
     <string name="AN4_label">Analog Input 4</string>
     <string name="AN4_data">- - - -</string>
     <string name="Message_data">    </string>
-    <string name="LogTime_label">Log Time</string>
+    <string name="LogTime_label">Log Time %1$s</string>
 
     <string name="Gauge_start">- - -</string>
     <string name="AFR1_gauge">AFR 1</string>
@@ -166,21 +166,20 @@
     <string name="Mode3_message">Monitor View</string>
     <string name="Mode4_message">Test</string>
 
-    <string name="Motorcycle_A">MV Agusta F41000</string>
-    <string name="Motorcycle_B">MV F4 750</string>
-    <string name="Motorcycle_C">MV B4 910</string>
-    <string name="Motorcycle_D">MV B4 750</string>
-    <string name="Motorcycle_E">Ducati 996</string>
-    <string name="Motorcycle_F">Ducati 916</string>
-    <string name="Motorcycle_G">Ducati 748</string>
-    <string name="Motorcycle_H">Ducati ST2</string>
-    <string name="Motorcycle_I">Ducati ST4</string>
-    <string name="Motorcycle_J">Cagiva</string>
-    <string name="Motorcycle_K">Laverda</string>
-    <string name="Motorcycle_L">Moto Guzzi</string>
-
-
-
+    <string-array name="Motorcycles">
+        <item>MV Agusta F4 1000</item>
+        <item>MV Agusta F4 750</item>
+        <item>MV Agusta B4 910</item>
+        <item>MV Agusta B4 750</item>
+        <item>Ducati 996</item>
+        <item>Ducati 916</item>
+        <item>Ducati 748</item>
+        <item>Ducati ST2</item>
+        <item>Ducati ST4</item>
+        <item>Cagiva</item>
+        <item>Laverda</item>
+        <item>Moto Guzzi</item>
+    </string-array>
 
     <!-- Menu items -->
     <string name="menu_connect">Connect</string>
