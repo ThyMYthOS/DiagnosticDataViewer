@@ -564,7 +564,12 @@ public class MainActivity extends AppCompatActivity
             fragment = new GraphFragment();
             title = R.string.graph_title;
         } else if (menuId == R.id.nav_table_view) {
+            Bundle bundle = new Bundle();
+            // TODO Select IDs depending on current motorcycle
+            bundle.putInt(TableFragment.ARG_RPM_MOT_ID, R.array.rpm_mot_A);
+            bundle.putInt(TableFragment.ARG_TPS_MOT_ID, R.array.tps_mot_A);
             fragment = TableFragment.newInstance();
+            fragment.setArguments(bundle);
             title = R.string.table_title;
         } else if (menuId == R.id.nav_actuator_view) {
             fragment = ActuatorTestFragment.newInstance();

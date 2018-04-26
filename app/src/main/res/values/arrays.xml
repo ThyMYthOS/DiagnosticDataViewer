@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="rpm_mot_A">
+        <item>0</item>
+        <item>900</item>
+        <item>1200</item>
+        <item>1800</item>
+        <item>2500</item>
+        <item>3000</item>
+        <item>3500</item>
+        <item>4000</item>
+        <item>4500</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+        <item>9500</item>
+        <item>11000</item>
+        <item>11800</item>
+        <item>12500</item>
+        <item>13500</item>
+    </array>
+    <array name="tps_mot_A">
+        <item>0</item>
+        <item>1.8</item>
+        <item>2.3</item>
+        <item>2.5</item>
+        <item>3.3</item>
+        <item>4.2</item>
+        <item>5.6</item>
+        <item>7.1</item>
+        <item>9.1</item>
+        <item>12</item>
+        <item>16</item>
+        <item>21</item>
+        <item>28</item>
+        <item>37</item>
+        <item>48</item>
+        <item>61</item>
+        <item>78</item>
+        <item>141</item>
+    </array>
+</resources>

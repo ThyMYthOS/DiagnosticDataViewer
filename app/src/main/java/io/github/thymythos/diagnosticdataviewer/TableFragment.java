@@ -1,6 +1,7 @@
 package io.github.thymythos.diagnosticdataviewer;
 
 import android.app.Fragment;
+import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,16 +23,16 @@ import static android.view.Gravity.CENTER_VERTICAL;
  * create an instance of this fragment.
  */
 public class TableFragment extends Fragment implements LiveDataFragment {
+    public static final String ARG_RPM_MOT_ID = "ARG_RPM_MOT_ID";
+    public static final String ARG_TPS_MOT_ID = "ARG_TPS_MOT_ID";
 
     private final DecimalFormat NUM_FORMAT = new DecimalFormat("#0.0");
-    private final int[] RPM_BINS = new int[]{0, 900, 1200, 1800, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9500, 11000, 11800, 12500, 13500};
-    private final float[] TPS_BINS = new float[]{0, 1.8f, 2.3f, 2.5f, 3.3f, 4.2f, 5.6f, 7.1f, 9.1f, 12, 16, 21, 28, 37, 48, 61, 78, 141};
 
-    private int[] maxRPM = new int[RPM_BINS.length - 2];
-    private int[] minRPM = new int[RPM_BINS.length - 2];
-    private float[] maxTPS = new float[TPS_BINS.length - 2];
-    private float[] minTPS = new float[TPS_BINS.length - 2];
-    private TextView[][] textViews = new TextView[RPM_BINS.length - 1][TPS_BINS.length - 1];
+    private int[] maxRPM = null;
+    private int[] minRPM = null;
+    private float[] maxTPS = null;
+    private float[] minTPS = null;
+    private TextView[][] textViews = null;
 
     private GradientDrawable gdGreen;
     private GradientDrawable gdRed;
@@ -84,21 +85,33 @@ public class TableFragment extends Fragment implements LiveDataFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        int rpmMotId = getArguments().getInt(ARG_RPM_MOT_ID);
+        int tpsMotId = getArguments().getInt(ARG_TPS_MOT_ID);
+        TypedArray rpmBins = getResources().obtainTypedArray(rpmMotId);
+        TypedArray tpsBins = getResources().obtainTypedArray(tpsMotId);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_table, container, false);
 
         float TPSclosed = 2.1f;
 
-        for (int i = 1; i < RPM_BINS.length - 1; i++) {
-            float minDiff = (TPS_BINS[i] - TPS_BINS[i - 1]) * 0.35f;
-            minTPS[i-1] = TPS_BINS[i] - minDiff;
-            float maxDiff = (TPS_BINS[i + 1] - TPS_BINS[i]) * 0.35f;
-            maxTPS[i-1] = TPS_BINS[i] + maxDiff;
+        maxRPM = new int[rpmBins.length() - 2];
+        minRPM = new int[rpmBins.length() - 2];
+        maxTPS = new float[tpsBins.length() - 2];
+        minTPS = new float[tpsBins.length() - 2];
+        textViews = new TextView[rpmBins.length() - 1][tpsBins.length() - 1];
 
-            minDiff = (float) (RPM_BINS[i] - RPM_BINS[i - 1]) * 0.35f;
-            minRPM[i - 1] = (int) (RPM_BINS[i] - minDiff);
-            maxDiff = (float) (RPM_BINS[i + 1] - RPM_BINS[i]) * 0.35f;
-            maxRPM[i - 1] = (int) (RPM_BINS[i] + maxDiff);
+        final float CONF_INTERVAL = 0.35f;
+        for (int i = 1; i < rpmBins.length() - 1; i++) {
+            float minDiff = (tpsBins.getFloat(i, 0) - tpsBins.getFloat(i - 1, 0)) * CONF_INTERVAL;
+            minTPS[i-1] = tpsBins.getFloat(i, 0) - minDiff;
+            float maxDiff = (tpsBins.getFloat(i + 1, 0) - tpsBins.getFloat(i, 0)) * CONF_INTERVAL;
+            maxTPS[i-1] = tpsBins.getFloat(i, 0) + maxDiff;
+
+            minDiff = (float) (rpmBins.getFloat(i, 0) - rpmBins.getFloat(i - 1, 0)) * CONF_INTERVAL;
+            minRPM[i - 1] = (int) (rpmBins.getFloat(i, 0) - minDiff);
+            maxDiff = (float) (rpmBins.getFloat(i + 1, 0) - rpmBins.getFloat(i, 0)) * CONF_INTERVAL;
+            maxRPM[i - 1] = (int) (rpmBins.getFloat(i, 0) + maxDiff);
 
         }
         minTPS[1] = TPSclosed * 0.9f;
@@ -127,7 +140,7 @@ public class TableFragment extends Fragment implements LiveDataFragment {
             text.setPadding(15, 0, 15, 0);
 
             if (row == 16) text.setText("");
-            else text.setText(NUM_FORMAT.format(RPM_BINS[17 - row] / 1000f));
+            else text.setText(NUM_FORMAT.format(rpmBins.getFloat(17 - row, 0) / 1000f));
 
             tableRow.addView(text);
 
@@ -138,7 +151,7 @@ public class TableFragment extends Fragment implements LiveDataFragment {
                 if (row < 16) {
                     textViews[row][col].setBackground(gdRed);
                 } else {
-                    textViews[row][col].setText(NUM_FORMAT.format(TPS_BINS[16 - col]));
+                    textViews[row][col].setText(NUM_FORMAT.format(tpsBins.getFloat(16 - col, 0)));
                     textViews[row][col].setGravity(Gravity.CENTER_HORIZONTAL);
                     if (col % 2 != 0) text.setText("  ");
                     textViews[row][col].setTextSize(10);
